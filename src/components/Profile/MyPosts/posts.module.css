@@ -1,0 +1,51 @@
+.wrapper{
+    font-size: 24px;
+    max-width: 90%;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+.wrapper h1{
+    font-size: 30px;
+}
+.posts__new textarea, .field{
+    width: 600px;
+    height: 70px;
+    border-radius: 18px;
+    border: 1px solid black;
+    padding: 10px;
+    font-size: 18px;
+    font-family: arial;
+    resize: none;
+}
+.bottom{
+    display: flex;
+    justify-content: space-between;
+}
+.posts__new{
+    display: flex;
+    flex-direction: column;
+    grid-gap: 20px;
+    margin-bottom: 20px;
+    max-width: 622px;
+    resize: none;
+}
+.button__add, .postSubmit{
+    width: 100px;
+    height: 30px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 1px solid white;
+    background: rgb(0, 0, 0);
+    align-self: flex-end;
+    color: white;
+}
+.button__add, .postSubmit:hover{
+    transition: 0.3s;
+    border: 1px solid black;
+    background: rgb(255, 255, 255);
+    color: black;
+}
+.error{
+    color: red;
+    font-size: 16px;
+}

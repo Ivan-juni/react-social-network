@@ -1,0 +1,83 @@
+.description__info{
+    padding-left: 0px;
+    list-style: none;
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+.description__info li{
+    margin-bottom: 10px;
+}
+.description__name{
+    font-size: 32px;
+}
+.status{
+    display: flex;
+    justify-content: space-between;
+    /* min-width: 420px; */
+    align-items: center;
+    margin-top: 24px;
+}
+.status h3, span {
+    margin: 0;
+    font-size: 24px;
+    margin-right: 5px;
+}
+.status span{
+    width: 250px;
+}
+.status input, .fullNameField {
+    font-size: 24px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+.contact{
+    margin-left: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+.field{
+    padding: 5px;
+    width: 150px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+.fieldTextArea{
+    font-size: 16px;
+    padding: 5px;
+    margin-top: 10px;
+    width: 100%;
+    height: 30px;
+    max-width: 305px;
+    resize: none;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+.contactValue{
+    font-style: bold;
+    color: white;
+    font-size: 16px;
+}
+.saveButton, .editButton{
+    width: 100px;
+    height: 30px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 1px solid white;
+    background: rgb(0, 0, 0);
+    align-self: flex-end;
+    color: white;
+}
+.saveButton, .editButton:hover{
+    transition: 0.3s;
+    border: 1px solid black;
+    background: rgb(255, 255, 255);
+    color: black;
+}
+.error{
+    font-size: 16px;
+    color: red;
+}

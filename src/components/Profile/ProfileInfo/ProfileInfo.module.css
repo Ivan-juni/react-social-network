@@ -1,0 +1,60 @@
+.content__background {
+    margin-top: -5px;
+}
+.background__thumb{
+    width: 100%;
+    height: 300px;
+}
+.avatar:hover .changePhoto{
+    opacity:1;
+}
+.avatarThumb{
+    width: 150px;
+    height: 150px;
+}
+.avatar{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: space-between; */
+    height: 150px;
+    position:relative;
+    text-align: center;
+}
+.changePhoto{
+    opacity:0;
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform:translate(-50%, 0);
+    transition: 0.3s;
+    width:50%;
+    height: 100%;
+    font-size:22px;
+    background-color:rgba(0, 0, 0, 0.685);
+    color:#fff;
+}
+.changePhotoLabel{
+    margin-top: 30%;
+}
+.content__info{
+    max-width: 100%;
+    margin: 0 auto;
+}
+.profile{
+    display: flex;
+}
+.file{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    position: absolute;
+    z-index: -10;
+    /* width: 115px; */
+}
+.fileCaption{
+    font-size: 16px;
+    display: block;
+    height: 150px;
+}

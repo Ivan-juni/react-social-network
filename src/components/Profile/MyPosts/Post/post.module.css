@@ -1,0 +1,45 @@
+.wrapper{
+    font-size: 24px;
+}
+.vline{
+    min-height: 50px;
+    min-width: 3px;
+    background-color:rgba(255, 0, 0, 0.589);
+    display: block;
+    margin-right: 10px;
+    opacity: 1;
+    align-self: center;
+}
+.post{
+    max-width: 622px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.post__block{
+    display: flex;
+    margin-bottom: 10px;
+}
+.likes{
+    display: block;
+}
+.options{
+    display: flex;
+    justify-content: space-between;
+}
+.options button{
+    font-style: arial;
+    font-size: 16px;
+    color:white;
+    background-color: rgba(255, 0, 0, 0.589);
+    border-radius: 10px;
+    border: 1px solid black;
+    width: 100px;
+    height: 30px;
+}
+.options button:hover{
+    transition: 0.3s;
+    border: 1px solid black;
+    background: rgb(255, 255, 255);
+    color: black;
+}
