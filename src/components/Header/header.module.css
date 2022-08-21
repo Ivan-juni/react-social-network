@@ -1,6 +1,6 @@
 .wrapper{
     grid-area: h;
-    background-color: rgba(255, 255, 255, 0.486);
+    background-color: #fdd6b6;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -35,14 +35,6 @@
 .profileLink{
     text-decoration: none;
 }
-/* .logoutButton{
-    color: rgb(0, 0, 0);
-    font-size: 24px;
-    margin: 10px;
-} */
-
-
-
 
 @import url(https://fonts.googleapis.com/css?family=Oswald:400);
 
@@ -72,8 +64,8 @@
 }
 
 .logoutButton {
-    text-decoration: none;
-    float: right;
+  text-decoration: none;
+  float: right;
   padding: 12px;
   margin: 15px;
   color: white;

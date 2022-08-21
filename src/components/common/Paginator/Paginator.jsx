@@ -3,7 +3,7 @@ import styles from "./Paginator.module.css";
 import {
   getUsersThunkCreator,
   updateNewCurrentPage,
-} from "../../../Redux/users-reducer";
+} from "../../../Redux/users-reducer.ts";
 import Pagination from "@mui/material/Pagination";
 
 const Paginator = ({ usersPage, dispatch }) => {

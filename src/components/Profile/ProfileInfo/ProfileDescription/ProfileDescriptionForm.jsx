@@ -2,7 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React from "react";
 import styles from "./ProfileDescription.module.css";
 import * as Yup from "yup";
-import { saveProfile } from "../../../../Redux/profile-reducer";
+import { saveProfile } from "../../../../Redux/profile-reducer.ts";
 
 const ProfileDescriptionForm = ({ profile, dispatch, setEditMode }) => {
   const initialValues = {

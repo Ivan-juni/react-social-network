@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import {
   followThunkCreator,
   unFollowThunkCreator,
-} from "../../Redux/users-reducer";
+} from "../../Redux/users-reducer.ts";
 
 const Users = ({ user, dispatch, usersPage }) => {
   return (

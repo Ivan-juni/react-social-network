@@ -4,7 +4,7 @@ import styles from "./Login.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { loginTC } from "../../Redux/auth-reducer";
+import { loginTC } from "../../Redux/auth-reducer.ts";
 
 const LoginForm = ({ captcha }) => {
   const dispatch = useDispatch();

@@ -4,7 +4,7 @@ import styles from "./posts.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { addPostActionCreator } from "../../../Redux/profile-reducer";
+import { addPostActionCreator } from "../../../Redux/profile-reducer.ts";
 
 const PostForm = () => {
   const dispatch = useDispatch();

@@ -1,4 +1,5 @@
 import { profileAPISamurai } from "../api/api";
+import {postType, profileType, photosType} from "../types/types";
 
 const ADD_POST = "profile/ADD-POST";
 const SET_USER_PROFILE = "profile/SET-USER-PROFILE";
@@ -15,12 +16,14 @@ let initialState = {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maiores quaerat sit corporis mollitia, id dolore reprehenderit. Totam, pariatur nisi?",
     },
     { id: 2, likes: 3, text: "Hello, everybody!" },
-  ],
-  profile: null,
-  status: "",
+  ] as Array<postType>,
+  profile: null as profileType | null,
+  status: "" as string,
 };
 
-const profileReducer = (state = initialState, action) => {
+export type initialStateType = typeof initialState;
+
+const profileReducer = (state = initialState, action:any):initialStateType => {
   switch (action.type) {
     case ADD_POST:
       let id = state.posts.length + 1;
@@ -46,7 +49,7 @@ const profileReducer = (state = initialState, action) => {
     case SET_PHOTO:
       return {
         ...state,
-        profile: { ...state.profile, photos: action.photo },
+        profile: { ...state.profile, photos: action.photo } as profileType,
       };
     case DELETE_POST:
       return {
@@ -58,58 +61,83 @@ const profileReducer = (state = initialState, action) => {
   }
 };
 
-export const addPostActionCreator = (post) => ({
+type addPostActionType = {
+  type: typeof ADD_POST
+  post: string
+}
+export const addPostActionCreator = (post: string):addPostActionType => ({
   type: ADD_POST,
   post,
 });
-export const setUserProfile = (profile) => ({
+
+type setUserProfileActionType ={
+  type: typeof SET_USER_PROFILE
+  profile: profileType
+}
+export const setUserProfile = (profile: profileType):setUserProfileActionType => ({
   type: SET_USER_PROFILE,
   profile,
 });
 
-export const setStatusAC = (status) => {
+type setStatusActionType = {
+  type: typeof SET_STATUS
+  status: string
+}
+export const setStatusAC = (status: string):setStatusActionType => {
   return { type: SET_STATUS, status };
 };
-export const setPhotoSuccessAC = (photo) => {
+
+type setPhotoSuccessActionType = {
+  type: typeof SET_PHOTO
+  photo: photosType
+}
+export const setPhotoSuccessAC = (photo: photosType):setPhotoSuccessActionType => {
   return { type: SET_PHOTO, photo };
 };
-export const deletePostAC = (postId) => {
+
+type deletePostActionType = {
+  type: typeof DELETE_POST
+  postId: number
+}
+export const deletePostAC = (postId: number):deletePostActionType => {
   return { type: DELETE_POST, postId };
 };
 
 // * thunks *
 
-export const profileThunkCreator = (userId) => async (dispatch) => {
+export const profileThunkCreator = (userId: number) => async (dispatch) => {
   const data = await profileAPISamurai.getProfile(userId);
 
   dispatch(setUserProfile(data));
 };
-export const getStatusThunkCreator = (userId) => async (dispatch) => {
+export const getStatusThunkCreator = (userId: number) => async (dispatch) => {
   const response = await profileAPISamurai.getStatus(userId);
 
   dispatch(setStatusAC(response.data));
 };
 
-export const updateStatusThunkCreator = (status) => async (dispatch) => {
+export const updateStatusThunkCreator = (status: string) => async (dispatch: any) => {
   const response = await profileAPISamurai.updateStatus(status);
 
   if (response.data.resultCode === 0) {
     dispatch(setStatusAC(status));
-  } else {
-    alert("Error: result code: ", response.data.resultCode);
-  }
+  } 
+  // else {
+  //   alert("Error: result code: ", response.data.resultCode);
+  // }
 };
 
-export const setPhoto = (photo) => async (dispatch) => {
+export const setPhoto = (photo: any) => async (dispatch: any) => {
   const response = await profileAPISamurai.setPhoto(photo);
 
   if (response.data.resultCode === 0) {
     dispatch(setPhotoSuccessAC(response.data.data.photos));
-  } else {
-    alert("Error: result code: ", response.data.resultCode);
-  }
+  } 
+  // else {
+  //   alert("Error: result code: ", response.data.resultCode);
+  // }
 };
-export const saveProfile = (profile, setStatus, setSubmitting) => async (
+export const saveProfile = (profile: profileType, setStatus, setSubmitting) => async (
   dispatch,
   getState
 ) => {

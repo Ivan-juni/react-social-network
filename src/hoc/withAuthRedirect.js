@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, connect } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
-import { profileThunkCreator } from "../Redux/profile-reducer";
+import { profileThunkCreator } from "../Redux/profile-reducer.ts";
 
 // const mapStateToPropsForRedirect = (state) => {
 //   return {

@@ -7,7 +7,7 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import { useDispatch, useSelector } from "react-redux";
 import withRouter from "./hoc/withRouter";
 import withSuspense from "./hoc/withSuspense";
-import { initializeAppTC } from "./Redux/app-reducer";
+import { initializeAppTC } from "./Redux/app-reducer.ts";
 import Preloader from "./components/common/Preloader/Preloader";
 import Footer from "./components/Footer/Footer";
 

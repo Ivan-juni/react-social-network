@@ -3,7 +3,7 @@ import bg from "../../../images/intro-bg-1.png";
 import avatar from "../../../images/ava-icon.jpeg";
 import Preloader from "../../common/Preloader/Preloader";
 import { useDispatch, useSelector } from "react-redux";
-import { setPhoto } from "../../../Redux/profile-reducer";
+import { setPhoto } from "../../../Redux/profile-reducer.ts";
 import ProfileDescription from "./ProfileDescription/ProfileDescription";
 import ProfileDescriptionForm from "./ProfileDescription/ProfileDescriptionForm";
 import { useState } from "react";
@@ -39,7 +39,7 @@ const ProfileInfo = ({ isOwner }) => {
             <div className={styles.changePhoto}>
               {isOwner && (
                 <div className={styles.changePhotoLabel}>
-                  <label for={"file"} className={styles.fileCaption}>
+                  <label htmlFor={"file"} className={styles.fileCaption}>
                     Загрузить фотографию профиля
                   </label>
                   <input

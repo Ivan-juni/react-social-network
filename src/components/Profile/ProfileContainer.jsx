@@ -7,8 +7,8 @@ import { compose } from "redux";
 import {
   getStatusThunkCreator,
   profileThunkCreator,
-} from "../../Redux/profile-reducer";
-import withRouter from "../../hoc/withRouter";
+} from "../../Redux/profile-reducer.ts";
+//import withRouter from "../../hoc/withRouter";
 
 const ProfileContainer = () => {
   const dispatch = useDispatch();
@@ -26,10 +26,10 @@ const ProfileContainer = () => {
     dispatch(getStatusThunkCreator(userId));
   }, [userId]);
 
-  return <Profile isOwner={!userId} />;
+  return <Profile isOwner={!userId || userId == authorizedUser} />;
 };
 
 export default compose(
-  withRouter,
+  //withRouter,
   withAuthRedirectFuncionalComponent // HOC
 )(ProfileContainer);

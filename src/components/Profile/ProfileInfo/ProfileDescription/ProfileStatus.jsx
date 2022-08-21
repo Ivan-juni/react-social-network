@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateStatusThunkCreator } from "../../../../Redux/profile-reducer";
+import { updateStatusThunkCreator } from "../../../../Redux/profile-reducer.ts";
 import styles from "./ProfileDescription.module.css";
 
 const ProfileStatus = () => {
@@ -16,7 +16,6 @@ const ProfileStatus = () => {
   };
 
   useEffect(() => {
-    console.log("useEffect");
     setStatus(statusBLL);
   }, [statusBLL]);
 

@@ -1,6 +1,6 @@
 .wrapper{
     grid-area: n;
-    background-color:  rgba(255, 255, 255, 0.486);
+    background-color: #fdd6b6;
 }
 .link {
     text-decoration: none;
@@ -9,12 +9,12 @@
 }
 .active{
     text-decoration: none;
-    color: rgb(12, 0, 179);
+    color: #6c8fb5;
     font-size: 32px;
 }
 .link:hover {
     transition: 0.3s;
-    color: rgb(12, 0, 179);
+    color: #6c8fb5;
 }
 .menu{
     list-style: none;

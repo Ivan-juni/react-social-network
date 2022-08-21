@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsersThunkCreator } from "../../Redux/users-reducer";
+import { getUsersThunkCreator } from "../../Redux/users-reducer.ts";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 

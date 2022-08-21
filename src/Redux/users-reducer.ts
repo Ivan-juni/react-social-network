@@ -1,4 +1,5 @@
 import { usersAPIPlaceholder, usersAPISamurai } from "../api/api";
+import {userType} from "../types/types";
 
 const FOLLOW = "users/FOLLOW";
 const SET_USERS = "users/SET-USERS";
@@ -9,16 +10,18 @@ const TOGGLE_IS_FOLLOWING_NOW = "users/TOGGLE-IS-FOLLOWING-NOW";
 const FOLLOWING_NOW_CHECKOUT = "users/FOLLOWING-NOW-CHECKOUT";
 
 let initialState = {
-  users: [],
-  pageSize: 5,
-  usersCount: 0,
-  currentPage: 1,
-  isFetching: false,
-  isFollowingInProgress: [],
-  followingNow: [],
+  users: [] as Array<userType>,
+  pageSize: 5 as number,
+  usersCount: 0 as number,
+  currentPage: 1 as number,
+  isFetching: false as boolean,
+  isFollowingInProgress: [] as Array<number>, // array of user's id
+  followingNow: [] as Array<userType>,
 };
 
-const usersReducer = (state = initialState, action) => {
+export type initialStateType = typeof initialState;
+
+const usersReducer = (state = initialState, action: any): initialStateType => {
   switch (action.type) {
     case FOLLOW:
       return {
@@ -68,35 +71,53 @@ const usersReducer = (state = initialState, action) => {
   }
 };
 
-export const follow = (userId) => {
-  return {
-    type: FOLLOW,
-    userId: userId,
-  };
-};
-export const setUsers = (users) => {
-  // users from server
-  return { type: SET_USERS, users: users };
-};
-export const followingNowAC = () => {
-  return { type: FOLLOWING_NOW_CHECKOUT };
-};
-export const setUsersCount = (usersCount) => {
-  return { type: SET_USERS_COUNT, usersCount };
-};
-export const updateNewCurrentPage = (page) => {
-  return { type: UPDATE_CURRENT_PAGE, page: page };
-};
-export const toggleIsFetching = (isFetching) => {
-  return { type: TOGGLE_IS_FETCHING, isFetching: isFetching };
-};
-export const toggleIsFollowingInProgress = (isFetching, userId) => {
+type followActionType = {
+  type: typeof FOLLOW
+  userId: number
+}
+export const follow = (userId: number): followActionType => ({type: FOLLOW, userId});
+
+type setUsersActionType = {
+   type: typeof SET_USERS
+    users: userType
+}
+export const setUsers = (users: userType): setUsersActionType => ({type: SET_USERS, users}); // users from server
+
+type followingNowActionType = {
+  type: typeof FOLLOWING_NOW_CHECKOUT
+}
+export const followingNowAC = (): followingNowActionType => ({type: FOLLOWING_NOW_CHECKOUT });
+
+type setUsersCountActionType = {
+  type: typeof SET_USERS_COUNT
+  usersCount: number
+}
+export const setUsersCount = (usersCount: number): setUsersCountActionType => ({type: SET_USERS_COUNT, usersCount });
+
+type updateNewCurrentPageActionType = {
+  type: typeof UPDATE_CURRENT_PAGE
+  page: number
+}
+export const updateNewCurrentPage = (page: number): updateNewCurrentPageActionType => ({type: UPDATE_CURRENT_PAGE, page });
+
+type toggleIsFetchingAction = {
+  type: typeof TOGGLE_IS_FETCHING
+  isFetching: boolean
+} 
+export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingAction => ({type: TOGGLE_IS_FETCHING, isFetching });
+
+type toggleIsFollowingInProgressActionType = {
+  type: typeof TOGGLE_IS_FOLLOWING_NOW
+  isFetching: boolean
+  userId: number
+}
+export const toggleIsFollowingInProgress = (isFetching: boolean, userId: number): toggleIsFollowingInProgressActionType => {
   return { type: TOGGLE_IS_FOLLOWING_NOW, isFetching, userId };
 };
 
 // * thunks *
 export const getUsersThunkCreator = (currentPage = 1, pageSize = 5) => async (
-  dispatch
+  dispatch: any
 ) => {
   dispatch(toggleIsFetching(true));
   const data = await usersAPISamurai.getUsers(currentPage, pageSize);
@@ -106,35 +127,27 @@ export const getUsersThunkCreator = (currentPage = 1, pageSize = 5) => async (
   dispatch(followingNowAC());
 };
 
-export const followThunkCreator = (userId) => async (dispatch) => {
+export const followThunkCreator = (userId: number) => async (dispatch: any) => {
   dispatch(toggleIsFollowingInProgress(true, userId));
 
   const response = await usersAPISamurai.follow(userId);
 
   if (response.data.resultCode === 0) {
-    //console.log("resultCode:", response.data.resultCode);
     dispatch(follow(userId));
     //dispatch(followingNowAC());
   }
-  // else {
-  //   console.log("resultCode:", response.data.resultCode);
-  // }
   dispatch(toggleIsFollowingInProgress(false, userId));
 };
 
-export const unFollowThunkCreator = (userId) => async (dispatch) => {
+export const unFollowThunkCreator = (userId: number) => async (dispatch: any) => {
   dispatch(toggleIsFollowingInProgress(true, userId));
 
   const response = await usersAPISamurai.unfollow(userId);
 
   if (response.data.resultCode === 0) {
-    //console.log("resultCode:", response.data.resultCode);
     dispatch(follow(userId));
     //dispatch(followingNowAC());
   }
-  // else {
-  //   console.log("resultCode:", response.data.resultCode);
-  // }
   dispatch(toggleIsFollowingInProgress(false, userId));
 };
 

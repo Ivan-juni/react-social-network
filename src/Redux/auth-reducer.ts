@@ -4,14 +4,16 @@ const SET_USER_DATA = "auth/SET-USER-DATA";
 const GET_CAPTCHA_URL_SUCCESS = "auth/GET-CAPTCHA-URL-SUCCESS";
 
 let initialState = {
-  userId: null,
-  email: null,
-  login: null,
+  userId: null as number | null,
+  email: null as string | null,
+  login: null as string| null,
   isAuth: false,
-  captchaURL: null,
+  captchaURL: null as string | null,
 };
 
-const authReducer = (state = initialState, action) => {
+export type initialStateType = typeof initialState;
+
+const authReducer = (state = initialState, action: any): initialStateType => {
   switch (action.type) {
     case SET_USER_DATA:
     case GET_CAPTCHA_URL_SUCCESS:
@@ -24,24 +26,33 @@ const authReducer = (state = initialState, action) => {
   }
 };
 
-export const setAuthUserData = (userId, login, email, isAuth, captchaURL) => ({
+type setAuthUserDataActionPayloadType = { userId: number | null, login: string | null, email:string | null, isAuth: boolean, captchaURL: string | null}
+type setAuthUserDataActionType = {type: typeof SET_USER_DATA, payload: setAuthUserDataActionPayloadType}
+
+export const setAuthUserData = (userId: number | null, login: string | null, email:string | null, isAuth: boolean, captchaURL: string | null):setAuthUserDataActionType => ({
   type: SET_USER_DATA,
   payload: { userId, login, email, isAuth, captchaURL },
 });
-export const getCaptchaUrlSuccess = (captchaURL) => ({
+
+type getCaptchaUrlSuccessActionType = {
+  type: typeof GET_CAPTCHA_URL_SUCCESS
+  payload: {captchaURL: string}
+}
+
+export const getCaptchaUrlSuccess = (captchaURL:string):getCaptchaUrlSuccessActionType => ({
   type: GET_CAPTCHA_URL_SUCCESS,
   payload: { captchaURL },
 });
 
 // * thunks *
-export const authThunkCreator = () => async (dispatch) => {
+export const authThunkCreator = () => async (dispatch: any) => {
   const data = await authAPISamurai
     .getAuth()
     .catch((err) => alert(err.message));
   if (data.resultCode === 0) {
     //console.log("authThunkCreator");
     dispatch(
-      setAuthUserData(data.data.id, data.data.login, data.data.email, true)
+      setAuthUserData(data.data.id, data.data.login, data.data.email, true, null)
     );
   } else if (data.resultCode === 1) {
     console.log(data.messages);
@@ -49,14 +60,14 @@ export const authThunkCreator = () => async (dispatch) => {
 };
 
 export const loginTC = (
-  email,
-  password,
-  rememberMe,
-  captcha,
-  setStatus,
-  setSubmitting
-) => async (dispatch) => {
-  const response = await authAPISamurai
+  email: string,
+  password: string,
+  rememberMe: boolean,
+  captcha: any,
+  setStatus: any,
+  setSubmitting: any
+) => async (dispatch: any) => {
+  const response: any = await authAPISamurai
     .login(email, password, rememberMe, captcha)
     .catch((err) => {
       alert(err.message);
@@ -73,7 +84,7 @@ export const loginTC = (
   }
 };
 
-export const logoutTC = () => async (dispatch) => {
+export const logoutTC = () => async (dispatch:any) => {
   const response = await authAPISamurai.logout();
 
   if (response.data.resultCode === 0) {
@@ -82,7 +93,7 @@ export const logoutTC = () => async (dispatch) => {
   }
 };
 
-export const getCaptchaUrl = () => async (dispatch) => {
+export const getCaptchaUrl = () => async (dispatch:any) => {
   const response = await securityAPI.getCaptcha();
 
   const captchaURL = response.data.url;

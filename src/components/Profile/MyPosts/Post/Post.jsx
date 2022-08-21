@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { deletePostAC } from "../../../../Redux/profile-reducer";
+import { deletePostAC } from "../../../../Redux/profile-reducer.ts";
 import styles from "./post.module.css";
 
 const Post = (props) => {

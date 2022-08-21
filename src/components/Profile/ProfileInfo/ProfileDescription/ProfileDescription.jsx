@@ -40,15 +40,6 @@ const ProfileDescription = ({ profile, dispatch, isOwner, goToEditMode }) => {
                 />
               );
             }
-            // else {
-            //   return (
-            //     <Contact
-            //       key={key}
-            //       contactTitle={key}
-            //       contactValue={"nothing here..."}
-            //     />
-            //   );
-            // }
           })}
         </li>
       </ul>

@@ -1,7 +1,7 @@
 import styles from "./header.module.css";
 import logo from "../../images/logo.svg";
 import { NavLink } from "react-router-dom";
-import { logoutTC } from "../../Redux/auth-reducer";
+import { logoutTC } from "../../Redux/auth-reducer.ts";
 import { useDispatch } from "react-redux";
 import avatar from "../../images/ava-icon.jpeg";
 
@@ -15,15 +15,8 @@ const Header = (props) => {
       </div>
       <div className={styles.loginBlock}>
         {props.isAuth ? (
-          // <div className={styles.logout}>
-          //   <NavLink
-          //     to={`/profile/${props.userId}`}
-          //     className={styles.profileLink}
-          //   >
-          //     <span className={styles.loginName}>{props.login} -</span>
-          //   </NavLink>
           <div className={styles.navigation}>
-            <a className={styles.logoutButton}>
+            <div className={styles.logoutButton}>
               <NavLink
                 to={`/profile/${props.userId}`}
                 className={styles.profileLink}
@@ -36,7 +29,7 @@ const Header = (props) => {
               >
                 LOGOUT
               </div>
-            </a>
+            </div>
           </div>
         ) : (
           // </div>

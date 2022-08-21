@@ -12,7 +12,7 @@
 }
 .wrapper__content{
   grid-area: c;
-  background-color: rgba(83, 228, 197, 0.596);
+  background-color: #ccd6fb;
   text-decoration: none;
   color: rgb(0, 0, 0);
   font-size: 32px;
