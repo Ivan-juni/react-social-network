@@ -1,8 +1,13 @@
+import React from "react";
 import styles from "./profile.module.css";
 import MyPosts from "./MyPosts/MyPosts";
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import ProfileInfo from "./ProfileInfo/ProfileInfo.tsx";
 
-const Profile = ({ isOwner }) => {
+type PropsType = {
+  isOwner: boolean
+}
+
+const Profile: React.FC<PropsType> = ({ isOwner }) => {
   return (
     <div className={styles.wrapper}>
       <ProfileInfo isOwner={isOwner} />

@@ -1,25 +1,18 @@
-const SEND_MESSAGE = "dialogs/SEND-MESSAGE";
+import { messagesDialogsType, usersDialogsType } from "../types/types";
 
-type usersType = {
-  id: number
-  name: string
-}
-type messagesType = {
-  id: number
-  message: string
-}
+const SEND_MESSAGE = "dialogs/SEND-MESSAGE";
 
 let initialState = {
   users: [
     { id: 1, name: "Misha" },
     { id: 2, name: "Valera" },
     { id: 3, name: "Vanya" },
-  ] as Array<usersType>,
+  ] as Array<usersDialogsType>,
   messages: [
     { id: 1, message: "Hi" },
     { id: 2, message: "123" },
     { id: 3, message: "Lorem" },
-  ] as Array<messagesType>,
+  ] as Array<messagesDialogsType>,
 };
 
 export type initialStateType = typeof initialState;

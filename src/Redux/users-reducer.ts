@@ -1,5 +1,8 @@
+import { ActionTypes } from "@mui/base";
+import { Dispatch } from "redux";
+import { ThunkAction } from "redux-thunk";
 import { usersAPIPlaceholder, usersAPISamurai } from "../api/api";
-import {userType} from "../types/types";
+import {RootState, userType} from "../types/types";
 
 const FOLLOW = "users/FOLLOW";
 const SET_USERS = "users/SET-USERS";
@@ -19,9 +22,9 @@ let initialState = {
   followingNow: [] as Array<userType>,
 };
 
-export type initialStateType = typeof initialState;
+type initialStateType = typeof initialState;
 
-const usersReducer = (state = initialState, action: any): initialStateType => {
+const usersReducer = (state = initialState, action: actionTypes): initialStateType  => {
   switch (action.type) {
     case FOLLOW:
       return {
@@ -71,6 +74,8 @@ const usersReducer = (state = initialState, action: any): initialStateType => {
   }
 };
 
+type actionTypes = followActionType | setUsersActionType | followingNowActionType | setUsersCountActionType | updateNewCurrentPageActionType | toggleIsFetchingAction |toggleIsFollowingInProgressActionType
+
 type followActionType = {
   type: typeof FOLLOW
   userId: number
@@ -78,10 +83,10 @@ type followActionType = {
 export const follow = (userId: number): followActionType => ({type: FOLLOW, userId});
 
 type setUsersActionType = {
-   type: typeof SET_USERS
-    users: userType
+  type: typeof SET_USERS
+  users: Array<userType>
 }
-export const setUsers = (users: userType): setUsersActionType => ({type: SET_USERS, users}); // users from server
+export const setUsers = (users: Array<userType>): setUsersActionType => ({type: SET_USERS, users}); // users from server
 
 type followingNowActionType = {
   type: typeof FOLLOWING_NOW_CHECKOUT
@@ -116,8 +121,12 @@ export const toggleIsFollowingInProgress = (isFetching: boolean, userId: number)
 };
 
 // * thunks *
-export const getUsersThunkCreator = (currentPage = 1, pageSize = 5) => async (
-  dispatch: any
+type ThunkType = ThunkAction<Promise<void>, RootState, unknown, actionTypes>
+type DispatchType = Dispatch<actionTypes>
+type GetStateType = () => RootState
+
+export const getUsersThunkCreator = (currentPage = 1, pageSize = 5): ThunkType  => async (
+  dispatch
 ) => {
   dispatch(toggleIsFetching(true));
   const data = await usersAPISamurai.getUsers(currentPage, pageSize);
@@ -127,19 +136,19 @@ export const getUsersThunkCreator = (currentPage = 1, pageSize = 5) => async (
   dispatch(followingNowAC());
 };
 
-export const followThunkCreator = (userId: number) => async (dispatch: any) => {
+export const followThunkCreator = (userId: number): ThunkType => async (dispatch) => {
   dispatch(toggleIsFollowingInProgress(true, userId));
 
   const response = await usersAPISamurai.follow(userId);
 
   if (response.data.resultCode === 0) {
     dispatch(follow(userId));
-    //dispatch(followingNowAC());
+    //dispatch(followingNowAC());  
   }
   dispatch(toggleIsFollowingInProgress(false, userId));
 };
 
-export const unFollowThunkCreator = (userId: number) => async (dispatch: any) => {
+export const unFollowThunkCreator = (userId: number): ThunkType => async (dispatch) => {
   dispatch(toggleIsFollowingInProgress(true, userId));
 
   const response = await usersAPISamurai.unfollow(userId);

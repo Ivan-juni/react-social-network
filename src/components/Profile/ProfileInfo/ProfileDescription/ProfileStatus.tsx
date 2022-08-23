@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateStatusThunkCreator } from "../../../../Redux/profile-reducer.ts";
 import styles from "./ProfileDescription.module.css";
+import { RootState } from '../../../../types/types';
+import { AppDispatch } from "../../../../Redux/redux-store";
 
 const ProfileStatus = () => {
-  const dispatch = useDispatch();
-  const statusBLL = useSelector((state) => state.profilePage.status);
+  const dispatch: AppDispatch = useDispatch();
+  const statusBLL = useSelector((state: RootState) => state.profilePage.status);
 
   let [status, setStatus] = useState(statusBLL);
   let [editMode, setEditMode] = useState(false);

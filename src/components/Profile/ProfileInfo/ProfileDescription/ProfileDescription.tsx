@@ -1,8 +1,17 @@
 import React from "react";
+import { AppDispatch } from "../../../../Redux/redux-store";
+import { profileType } from "../../../../types/types";
 import styles from "./ProfileDescription.module.css";
-import ProfileStatus from "./ProfileStatus";
+import ProfileStatus from "./ProfileStatus.tsx";
 
-const ProfileDescription = ({ profile, dispatch, isOwner, goToEditMode }) => {
+type PropsType = {
+  profile: profileType
+  dispatch: AppDispatch
+  isOwner: boolean
+  goToEditMode: () => void
+}
+
+const ProfileDescription: React.FC<PropsType> = ({ profile, dispatch, isOwner, goToEditMode }) => {
   return (
     <div>
       <div className={styles.description__caption}>

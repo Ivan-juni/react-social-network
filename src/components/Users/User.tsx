@@ -6,8 +6,15 @@ import {
   followThunkCreator,
   unFollowThunkCreator,
 } from "../../Redux/users-reducer.ts";
+import { usersPageType, userType } from "../../types/types";
 
-const Users = ({ user, dispatch, usersPage }) => {
+type PropsType = {
+  usersPage: usersPageType
+  dispatch: any
+  user: userType
+}
+
+const Users: React.FC<PropsType> = ({ user, dispatch, usersPage }) => {
   return (
     <div className={styles.user}>
       <div className={styles.left_block}>

@@ -1,7 +1,8 @@
 //import preloader from "../../../images/Rocket.gif";
+import React from "react";
 import preloader from "../../../images/1485.gif";
 
-let Preloader = (props) => {
+let Preloader = () => {
   return (
     <div
       style={{

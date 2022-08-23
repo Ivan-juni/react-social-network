@@ -8,17 +8,17 @@ import { useDispatch, useSelector } from "react-redux";
 import withRouter from "./hoc/withRouter";
 import withSuspense from "./hoc/withSuspense";
 import { initializeAppTC } from "./Redux/app-reducer.ts";
-import Preloader from "./components/common/Preloader/Preloader";
+import Preloader from "./components/common/Preloader/Preloader.tsx";
 import Footer from "./components/Footer/Footer";
 
 const Login = withSuspense(
   React.lazy(() => import("./components/Login/Login"))
 );
 const Dialogs = withSuspense(
-  React.lazy(() => import("./components/Dialogs/Dialogs"))
+  React.lazy(() => import("./components/Dialogs/Dialogs.tsx"))
 );
 const UsersContainer = withSuspense(
-  React.lazy(() => import("./components/Users/UsersContainer"))
+  React.lazy(() => import("./components/Users/UsersContainer.tsx"))
 );
 
 const App = () => {

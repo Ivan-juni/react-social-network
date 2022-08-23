@@ -1,15 +1,17 @@
 import React from "react";
 import { sendMessageActionCreator } from "../../Redux/dialogs-reducer.ts";
 import styles from "./Dialogs.module.css";
-import DialogItem from "./DialogItem/DialogItem";
-import Message from "./Message/Message";
+import DialogItem from "./DialogItem/DialogItem.tsx";
+import Message from "./Message/Message.tsx";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
 import { withAuthRedirectFuncionalComponent } from "../../hoc/withAuthRedirect";
+import { AppDispatch } from "../../Redux/redux-store";
+import { RootState } from '../../types/types';
 
 const MessageForm = () => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const onSubmit = (values, { resetForm }) => {
     console.log("Form data", values);
@@ -47,13 +49,21 @@ const MessageForm = () => {
 };
 
 const Dialogs = () => {
-  const dialogsPage = useSelector((state) => state.dialogsPage);
+  const dialogsPage = useSelector((state: RootState) => state.dialogsPage);
 
-  let UsersData = dialogsPage.users.map((u) => (
+  type userObjType = {
+    name: string
+    id: number
+  }
+  let UsersData = dialogsPage.users.map((u: userObjType) => (
     <DialogItem name={u.name} key={u.id} id={u.id} />
   ));
 
-  let MessagesData = dialogsPage.messages.map((m) => (
+  type messageObjType = {
+    message: string
+    id: number
+  }
+  let MessagesData = dialogsPage.messages.map((m: messageObjType) => (
     <Message message={m.message} key={m.id} />
   ));
 

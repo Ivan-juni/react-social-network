@@ -1,8 +1,4 @@
-type friendsType = {
-  id: number
-  name: string
-  avatar: string
-}
+import { friendsType } from "../types/types";
 
 let initialState = {
   friends: [
@@ -27,10 +23,12 @@ let initialState = {
   ] as Array<friendsType>,
 };
 
-export type initialStateType = typeof initialState;
+type initialStateType = typeof initialState;
 
-const sidebarReducer = (state = initialState, action: any): initialStateType => {
+const sidebarReducer = (state = initialState, action: actionTypes): initialStateType => {
   return state;
 };
+
+type actionTypes = null
 
 export default sidebarReducer;

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Profile from "./Profile";
+import Profile from "./Profile.tsx";
 import { Navigate, useParams } from "react-router-dom";
 import { withAuthRedirectFuncionalComponent } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";

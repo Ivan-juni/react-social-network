@@ -1,3 +1,6 @@
+import { Dispatch } from "redux";
+import { ThunkAction } from "redux-thunk";
+import { RootState } from "../types/types";
 import { authThunkCreator } from "./auth-reducer.ts";
 //import { getUsersThunkCreator } from "./users-reducer";
 
@@ -11,7 +14,7 @@ let initialState: initialStateType = {
   initialized: false,
 };
 
-const appReducer = (state = initialState, action: any): initialStateType => {
+const appReducer = (state = initialState, action: actionTypes): initialStateType => {
   switch (action.type) {
     case INITIALIZED:
       return {
@@ -23,6 +26,8 @@ const appReducer = (state = initialState, action: any): initialStateType => {
   }
 };
 
+type actionTypes = setInitializedActionType;
+
 type setInitializedActionType = {
   type: typeof INITIALIZED
 }
@@ -30,8 +35,10 @@ type setInitializedActionType = {
 export const setInitialized = (): setInitializedActionType => ({ type: INITIALIZED });
 
 // * thunks *
+type DispatchType = Dispatch<actionTypes>
+
 export const initializeAppTC = () => {
-  return (dispatch: any) => {
+  return (dispatch: DispatchType) => {
     let promise = dispatch(authThunkCreator());
 
     Promise.all([promise]).then(() => {

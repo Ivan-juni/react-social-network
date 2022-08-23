@@ -1,5 +1,6 @@
+import { ThunkAction } from "redux-thunk";
 import { profileAPISamurai } from "../api/api";
-import {postType, profileType, photosType} from "../types/types";
+import {postType, profileType, photosType, RootState} from "../types/types";
 
 const ADD_POST = "profile/ADD-POST";
 const SET_USER_PROFILE = "profile/SET-USER-PROFILE";
@@ -23,7 +24,7 @@ let initialState = {
 
 export type initialStateType = typeof initialState;
 
-const profileReducer = (state = initialState, action:any):initialStateType => {
+const profileReducer = (state = initialState, action: actionTypes):initialStateType => {
   switch (action.type) {
     case ADD_POST:
       let id = state.posts.length + 1;
@@ -60,6 +61,8 @@ const profileReducer = (state = initialState, action:any):initialStateType => {
       return state;
   }
 };
+
+type actionTypes = addPostActionType | setUserProfileActionType | setStatusActionType | setPhotoSuccessActionType | deletePostActionType;
 
 type addPostActionType = {
   type: typeof ADD_POST
@@ -104,19 +107,20 @@ export const deletePostAC = (postId: number):deletePostActionType => {
 };
 
 // * thunks *
+type ThunkType = ThunkAction<Promise<void>, RootState, unknown, actionTypes>
 
-export const profileThunkCreator = (userId: number) => async (dispatch) => {
+export const profileThunkCreator = (userId: number): ThunkType => async (dispatch) => {
   const data = await profileAPISamurai.getProfile(userId);
 
   dispatch(setUserProfile(data));
 };
-export const getStatusThunkCreator = (userId: number) => async (dispatch) => {
+export const getStatusThunkCreator = (userId: number): ThunkType => async (dispatch) => {
   const response = await profileAPISamurai.getStatus(userId);
 
   dispatch(setStatusAC(response.data));
 };
 
-export const updateStatusThunkCreator = (status: string) => async (dispatch: any) => {
+export const updateStatusThunkCreator = (status: string): ThunkType => async (dispatch) => {
   const response = await profileAPISamurai.updateStatus(status);
 
   if (response.data.resultCode === 0) {
@@ -127,7 +131,7 @@ export const updateStatusThunkCreator = (status: string) => async (dispatch: any
   // }
 };
 
-export const setPhoto = (photo: any) => async (dispatch: any) => {
+export const setPhoto = (photo: File): ThunkType => async (dispatch) => {
   const response = await profileAPISamurai.setPhoto(photo);
 
   if (response.data.resultCode === 0) {
@@ -137,7 +141,7 @@ export const setPhoto = (photo: any) => async (dispatch: any) => {
   //   alert("Error: result code: ", response.data.resultCode);
   // }
 };
-export const saveProfile = (profile: profileType, setStatus, setSubmitting) => async (
+export const saveProfile = (profile: profileType, setStatus: (arg0: boolean) => void, setSubmitting: (arg0: boolean) => void): ThunkType => async (
   dispatch,
   getState
 ) => {
@@ -145,8 +149,12 @@ export const saveProfile = (profile: profileType, setStatus, setSubmitting) => a
 
   if (response.data.resultCode === 0) {
     const userId = getState().auth.userId;
-
-    dispatch(profileThunkCreator(userId));
+    if (userId != null) {
+      dispatch(profileThunkCreator(userId));
+    }
+    else {
+      throw new Error("userId can't be null")
+    }
   } else {
     setStatus(response.data.messages);
     setSubmitting(false);

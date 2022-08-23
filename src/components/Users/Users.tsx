@@ -1,9 +1,15 @@
 import React from "react";
 import styles from "./Users.module.css";
-import Paginator from "../common/Paginator/Paginator";
-import User from "./User";
+import Paginator from "../common/Paginator/Paginator.tsx";
+import User from "./User.tsx";
+import {usersPageType} from "../../types/types"
 
-const Users = ({ dispatch, usersPage }) => {
+type PropsType = {
+  usersPage: usersPageType
+  dispatch: any
+}
+
+const Users: React.FC<PropsType> = ({ dispatch, usersPage }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.paginator}>
