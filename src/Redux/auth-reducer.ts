@@ -1,5 +1,5 @@
 import { ThunkAction } from "redux-thunk";
-import { authAPISamurai, securityAPI } from "../api/api";
+import { authAPISamurai, ResultCodesEnum, securityAPI } from "../api/api.ts";
 import { RootState } from "../types/types";
 
 const SET_USER_DATA = "auth/SET-USER-DATA";
@@ -54,12 +54,12 @@ export const authThunkCreator = (): ThunkType => async (dispatch) => {
   const data = await authAPISamurai
     .getAuth()
     .catch((err) => alert(err.message));
-  if (data.resultCode === 0) {
+  if (data.resultCode === ResultCodesEnum.Sucess) { 
     //console.log("authThunkCreator");
     dispatch(
       setAuthUserData(data.data.id, data.data.login, data.data.email, true, null)
     );
-  } else if (data.resultCode === 1) {
+  } else if (data.resultCode === ResultCodesEnum.Error) {
     console.log(data.messages);
   }
 };
@@ -72,16 +72,16 @@ export const loginTC = (
   setStatus: any,
   setSubmitting: any
 ): ThunkType => async (dispatch) => {
-  const response: any = await authAPISamurai
+  const response = await authAPISamurai
     .login(email, password, rememberMe, captcha)
     .catch((err) => {
       alert(err.message);
     });
-  if (response.data.resultCode === 0) {
+  if (response.data.resultCode === ResultCodesEnum.Sucess) {
     //console.log("loginThunkCreator");
     dispatch(authThunkCreator());
   } else {
-    if (response.data.resultCode === 10) {
+    if (response.data.resultCode === ResultCodesEnum.CaptchaIsRequired) {
       dispatch(getCaptchaUrl());
     }
     setStatus(response.data.messages);
@@ -92,7 +92,7 @@ export const loginTC = (
 export const logoutTC = (): ThunkType => async (dispatch) => {
   const response = await authAPISamurai.logout();
 
-  if (response.data.resultCode === 0) {
+  if (response.data.resultCode === ResultCodesEnum.Sucess) {
     //console.log("logoutThunkCreator");
     dispatch(setAuthUserData(null, null, null, false, null));
   }

@@ -1,5 +1,5 @@
 import { ThunkAction } from "redux-thunk";
-import { profileAPISamurai } from "../api/api";
+import { profileAPISamurai } from "../api/api.ts";
 import {postType, profileType, photosType, RootState} from "../types/types";
 
 const ADD_POST = "profile/ADD-POST";

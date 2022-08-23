@@ -1,7 +1,6 @@
-import { ActionTypes } from "@mui/base";
 import { Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
-import { usersAPIPlaceholder, usersAPISamurai } from "../api/api";
+import { usersAPIPlaceholder, usersAPISamurai } from "../api/api.ts";
 import {RootState, userType} from "../types/types";
 
 const FOLLOW = "users/FOLLOW";
