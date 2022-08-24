@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./Paginator.module.css";
 import {
-  getUsersThunkCreator,
-  updateNewCurrentPage,
+  usersActions
 } from "../../../Redux/users-reducer.ts";
 import Pagination from "@mui/material/Pagination";
 import {usersPageType} from "../../../types/types"
@@ -15,8 +14,8 @@ type PropsType = {
 const Paginator: React.FC<PropsType>  = ({ usersPage, dispatch }) => {
 
   const currentPageChange = (page: number) => {
-    dispatch(updateNewCurrentPage(page));
-    dispatch(getUsersThunkCreator(page, usersPage.pageSize));
+    dispatch(usersActions.updateNewCurrentPage(page));
+    dispatch(usersActions.getUsersThunkCreator(page, usersPage.pageSize));
   };
 
   return (

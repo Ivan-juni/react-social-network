@@ -1,17 +1,17 @@
 import React from "react";
-import Post from "./Post/Post";
+import Post from "./Post/Post.tsx";
 import styles from "./posts.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { addPostActionCreator } from "../../../Redux/profile-reducer.ts";
+import { profileActions } from "../../../Redux/profile-reducer.ts";
 
 const PostForm = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (values, { resetForm }) => {
     console.log("Form data", values);
-    dispatch(addPostActionCreator(values.post));
+    dispatch(profileActions.addPostActionCreator(values.post));
     resetForm({});
     //! тут бабахают апи для сабмита
   };

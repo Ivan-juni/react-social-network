@@ -34,14 +34,14 @@ export type profilePageType = {
 }
 // dialogs
 export type usersDialogsType = {
+  map(arg0: (u: { name: string; id: number }) => JSX.Element): Array<JSX.Element>
   id: number
   name: string
-  map: any
 }
 export type messagesDialogsType = {
+  map(arg0: (m: { message: string; id: number }) => JSX.Element): Array<JSX.Element>
   id: number
   message: string
-  map: any
 }
 export type dialogsPageType = {
   users: usersDialogsType

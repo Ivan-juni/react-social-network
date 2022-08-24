@@ -1,5 +1,5 @@
 import React from "react";
-import { sendMessageActionCreator } from "../../Redux/dialogs-reducer.ts";
+import { dialogsActions } from "../../Redux/dialogs-reducer.ts";
 import styles from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem.tsx";
 import Message from "./Message/Message.tsx";
@@ -15,7 +15,7 @@ const MessageForm = () => {
 
   const onSubmit = (values, { resetForm }) => {
     console.log("Form data", values);
-    dispatch(sendMessageActionCreator(values.message));
+    dispatch(dialogsActions.sendMessageActionCreator(values.message));
     resetForm({});
     //! тут бабахают апи для сабмита
   };

@@ -1,6 +1,7 @@
 import { ThunkAction } from "redux-thunk";
 import { profileAPISamurai } from "../api/api.ts";
 import {postType, profileType, photosType, RootState} from "../types/types";
+import { InferActionsTypes } from "./redux-store";
 
 const ADD_POST = "profile/ADD-POST";
 const SET_USER_PROFILE = "profile/SET-USER-PROFILE";
@@ -62,49 +63,15 @@ const profileReducer = (state = initialState, action: actionTypes):initialStateT
   }
 };
 
-type actionTypes = addPostActionType | setUserProfileActionType | setStatusActionType | setPhotoSuccessActionType | deletePostActionType;
+type actionTypes = InferActionsTypes<typeof profileActions>;
 
-type addPostActionType = {
-  type: typeof ADD_POST
-  post: string
+export const profileActions = {
+  addPostActionCreator : (post: string) => ({type: ADD_POST, post}) as const,
+  setUserProfile : (profile: profileType) => ({type: SET_USER_PROFILE, profile}) as const,
+  setStatusAC : (status: string) => ({ type: SET_STATUS, status }) as const,
+  setPhotoSuccessAC : (photo: photosType) => ({type: SET_PHOTO, photo }) as const,
+  deletePostAC : (postId: number)=> ({type: DELETE_POST, postId }) as const,
 }
-export const addPostActionCreator = (post: string):addPostActionType => ({
-  type: ADD_POST,
-  post,
-});
-
-type setUserProfileActionType ={
-  type: typeof SET_USER_PROFILE
-  profile: profileType
-}
-export const setUserProfile = (profile: profileType):setUserProfileActionType => ({
-  type: SET_USER_PROFILE,
-  profile,
-});
-
-type setStatusActionType = {
-  type: typeof SET_STATUS
-  status: string
-}
-export const setStatusAC = (status: string):setStatusActionType => {
-  return { type: SET_STATUS, status };
-};
-
-type setPhotoSuccessActionType = {
-  type: typeof SET_PHOTO
-  photo: photosType
-}
-export const setPhotoSuccessAC = (photo: photosType):setPhotoSuccessActionType => {
-  return { type: SET_PHOTO, photo };
-};
-
-type deletePostActionType = {
-  type: typeof DELETE_POST
-  postId: number
-}
-export const deletePostAC = (postId: number):deletePostActionType => {
-  return { type: DELETE_POST, postId };
-};
 
 // * thunks *
 type ThunkType = ThunkAction<Promise<void>, RootState, unknown, actionTypes>
@@ -112,36 +79,35 @@ type ThunkType = ThunkAction<Promise<void>, RootState, unknown, actionTypes>
 export const profileThunkCreator = (userId: number): ThunkType => async (dispatch) => {
   const data = await profileAPISamurai.getProfile(userId);
 
-  dispatch(setUserProfile(data));
+  dispatch(profileActions.setUserProfile(data));
 };
+
 export const getStatusThunkCreator = (userId: number): ThunkType => async (dispatch) => {
   const response = await profileAPISamurai.getStatus(userId);
 
-  dispatch(setStatusAC(response.data));
+  dispatch(profileActions.setStatusAC(response.data));
 };
 
 export const updateStatusThunkCreator = (status: string): ThunkType => async (dispatch) => {
   const response = await profileAPISamurai.updateStatus(status);
 
   if (response.data.resultCode === 0) {
-    dispatch(setStatusAC(status));
+    dispatch(profileActions.setStatusAC(status));
   } 
-  // else {
-  //   alert("Error: result code: ", response.data.resultCode);
-  // }
 };
 
 export const setPhoto = (photo: File): ThunkType => async (dispatch) => {
   const response = await profileAPISamurai.setPhoto(photo);
 
   if (response.data.resultCode === 0) {
-    dispatch(setPhotoSuccessAC(response.data.data.photos));
+    dispatch(profileActions.setPhotoSuccessAC(response.data.data.photos));
   } 
   // else {
   //   alert("Error: result code: ", response.data.resultCode);
   // }
 };
-export const saveProfile = (profile: profileType, setStatus: (arg0: boolean) => void, setSubmitting: (arg0: boolean) => void): ThunkType => async (
+
+export const saveProfile = (profile: profileType, setStatus: (arg0: string) => void, setSubmitting: (arg0: boolean) => void): ThunkType => async (
   dispatch,
   getState
 ) => {

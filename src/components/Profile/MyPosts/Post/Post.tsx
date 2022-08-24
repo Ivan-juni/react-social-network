@@ -1,12 +1,20 @@
+import React from "react";
 import { useDispatch } from "react-redux";
-import { deletePostAC } from "../../../../Redux/profile-reducer.ts";
+import { profileActions } from "../../../../Redux/profile-reducer.ts";
+import { AppDispatch } from "../../../../Redux/redux-store";
 import styles from "./post.module.css";
 
-const Post = (props) => {
-  const dispatch = useDispatch();
+type PropsType = {
+  postId: number
+  text: string 
+  likes: number
+}
+
+const Post: React.FC<PropsType> = ({postId, text, likes}) => {
+  const dispatch: AppDispatch = useDispatch();
 
   const deletePost = () => {
-    dispatch(deletePostAC(props.postId));
+    dispatch(profileActions.deletePostAC(postId));
   };
 
   return (
@@ -14,11 +22,11 @@ const Post = (props) => {
       <div className={styles.post}>
         <div className={styles.post__block}>
           <div className={styles.vline}></div>
-          <span className={styles.post__text}>{props.text}</span>
+          <span className={styles.post__text}>{text}</span>
         </div>
         <div className={styles.options}>
           <span className={styles.likes}>
-            Likes: <font color="red">{props.likes}</font>
+            Likes: <span className={styles.likes}>{likes}</span>
           </span>
           <button onClick={deletePost}>Delete post</button>
         </div>

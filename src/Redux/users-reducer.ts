@@ -1,7 +1,7 @@
-import { Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
-import { usersAPIPlaceholder, usersAPISamurai } from "../api/api.ts";
+import { usersAPISamurai } from "../api/api.ts";
 import {RootState, userType} from "../types/types";
+import { InferActionsTypes } from "./redux-store";
 
 const FOLLOW = "users/FOLLOW";
 const SET_USERS = "users/SET-USERS";
@@ -73,90 +73,56 @@ const usersReducer = (state = initialState, action: actionTypes): initialStateTy
   }
 };
 
-type actionTypes = followActionType | setUsersActionType | followingNowActionType | setUsersCountActionType | updateNewCurrentPageActionType | toggleIsFetchingAction |toggleIsFollowingInProgressActionType
+type actionTypes = InferActionsTypes<typeof usersActions>
 
-type followActionType = {
-  type: typeof FOLLOW
-  userId: number
+export const usersActions = {
+  follow : (userId: number) => ({type: FOLLOW, userId}) as const,
+  setUsers : (users: Array<userType>) => ({type: SET_USERS, users}) as const, // users from server
+  followingNowAC : ()=> ({type: FOLLOWING_NOW_CHECKOUT }) as const,
+  setUsersCount : (usersCount: number) => ({type: SET_USERS_COUNT, usersCount }) as const,
+  updateNewCurrentPage : (page: number) => ({type: UPDATE_CURRENT_PAGE, page }) as const,
+  toggleIsFetching : (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching }) as const,
+  toggleIsFollowingInProgress : (isFetching: boolean, userId: number) => ({type: TOGGLE_IS_FOLLOWING_NOW, isFetching, userId }) as const,
 }
-export const follow = (userId: number): followActionType => ({type: FOLLOW, userId});
-
-type setUsersActionType = {
-  type: typeof SET_USERS
-  users: Array<userType>
-}
-export const setUsers = (users: Array<userType>): setUsersActionType => ({type: SET_USERS, users}); // users from server
-
-type followingNowActionType = {
-  type: typeof FOLLOWING_NOW_CHECKOUT
-}
-export const followingNowAC = (): followingNowActionType => ({type: FOLLOWING_NOW_CHECKOUT });
-
-type setUsersCountActionType = {
-  type: typeof SET_USERS_COUNT
-  usersCount: number
-}
-export const setUsersCount = (usersCount: number): setUsersCountActionType => ({type: SET_USERS_COUNT, usersCount });
-
-type updateNewCurrentPageActionType = {
-  type: typeof UPDATE_CURRENT_PAGE
-  page: number
-}
-export const updateNewCurrentPage = (page: number): updateNewCurrentPageActionType => ({type: UPDATE_CURRENT_PAGE, page });
-
-type toggleIsFetchingAction = {
-  type: typeof TOGGLE_IS_FETCHING
-  isFetching: boolean
-} 
-export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingAction => ({type: TOGGLE_IS_FETCHING, isFetching });
-
-type toggleIsFollowingInProgressActionType = {
-  type: typeof TOGGLE_IS_FOLLOWING_NOW
-  isFetching: boolean
-  userId: number
-}
-export const toggleIsFollowingInProgress = (isFetching: boolean, userId: number): toggleIsFollowingInProgressActionType => {
-  return { type: TOGGLE_IS_FOLLOWING_NOW, isFetching, userId };
-};
 
 // * thunks *
 type ThunkType = ThunkAction<Promise<void>, RootState, unknown, actionTypes>
-type DispatchType = Dispatch<actionTypes>
-type GetStateType = () => RootState
+// type DispatchType = Dispatch<actionTypes>
+// type GetStateType = () => RootState
 
 export const getUsersThunkCreator = (currentPage = 1, pageSize = 5): ThunkType  => async (
   dispatch
 ) => {
-  dispatch(toggleIsFetching(true));
+  dispatch(usersActions.toggleIsFetching(true));
   const data = await usersAPISamurai.getUsers(currentPage, pageSize);
-  dispatch(toggleIsFetching(false));
-  dispatch(setUsersCount(data.totalCount));
-  dispatch(setUsers(data.items));
-  dispatch(followingNowAC());
+  dispatch(usersActions.toggleIsFetching(false));
+  dispatch(usersActions.setUsersCount(data.totalCount));
+  dispatch(usersActions.setUsers(data.items));
+  dispatch(usersActions.followingNowAC());
 };
 
 export const followThunkCreator = (userId: number): ThunkType => async (dispatch) => {
-  dispatch(toggleIsFollowingInProgress(true, userId));
+  dispatch(usersActions.toggleIsFollowingInProgress(true, userId));
 
   const response = await usersAPISamurai.follow(userId);
 
   if (response.data.resultCode === 0) {
-    dispatch(follow(userId));
+    dispatch(usersActions.follow(userId));
     //dispatch(followingNowAC());  
   }
-  dispatch(toggleIsFollowingInProgress(false, userId));
+  dispatch(usersActions.toggleIsFollowingInProgress(false, userId));
 };
 
 export const unFollowThunkCreator = (userId: number): ThunkType => async (dispatch) => {
-  dispatch(toggleIsFollowingInProgress(true, userId));
+  dispatch(usersActions.toggleIsFollowingInProgress(true, userId));
 
   const response = await usersAPISamurai.unfollow(userId);
 
   if (response.data.resultCode === 0) {
-    dispatch(follow(userId));
+    dispatch(usersActions.follow(userId));
     //dispatch(followingNowAC());
   }
-  dispatch(toggleIsFollowingInProgress(false, userId));
+  dispatch(usersActions.toggleIsFollowingInProgress(false, userId));
 };
 
 export default usersReducer;
