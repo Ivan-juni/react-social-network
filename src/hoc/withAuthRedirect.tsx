@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, connect } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
-import { profileThunkCreator } from "../Redux/profile-reducer.ts";
+//import { profileThunkCreator } from "../Redux/profile-reducer.ts";
+import { RootState } from '../types/types';
 
-// const mapStateToPropsForRedirect = (state) => {
-//   return {
-//     isAuth: state.auth.isAuth,
-//   };
-// };
-
-export const withAuthRedirectFuncionalComponent = (Component) => {
+export function withAuthRedirectFuncionalComponent<WCP>(WrappedComponent: React.ComponentType<WCP>) {
   // ! HOC для функциональных компонент
-  const RedirectComponent = () => {
+  function RedirectComponent(props: WCP) {
     // * Redirect *
-    const navigate = useNavigate("/login/");
-    const isAuth = useSelector((state) => state.auth.isAuth);
+    type useNavigateType = {
+      useNavigate: (arg0: string) => void
+    }
+
+    const navigate = useNavigate();
+    const isAuth = useSelector((state: RootState) => state.auth.isAuth);
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
@@ -26,11 +25,17 @@ export const withAuthRedirectFuncionalComponent = (Component) => {
         //alert("You are not authorized");
         return navigate("/login/");
       }
-      return <Component />;
+      return <WrappedComponent {...props}/>;
     }
-  };
+  }
   return RedirectComponent;
 };
+
+// const mapStateToPropsForRedirect = (state) => {
+//   return {
+//     isAuth: state.auth.isAuth,
+//   };
+// };
 
 // export const withAuthRedirectClassComponent = (Component) => {
 //   // ! HOC для классовых компонент

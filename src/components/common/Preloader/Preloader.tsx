@@ -1,8 +1,7 @@
-//import preloader from "../../../images/Rocket.gif";
 import React from "react";
 import preloader from "../../../images/1485.gif";
 
-let Preloader = () => {
+let Preloader: React.FC = () => {
   return (
     <div
       style={{

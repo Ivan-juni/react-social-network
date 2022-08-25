@@ -7,7 +7,7 @@ import Preloader from "../../common/Preloader/Preloader.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import { setPhoto } from "../../../Redux/profile-reducer.ts";
 import ProfileDescription from "./ProfileDescription/ProfileDescription.tsx";
-import ProfileDescriptionForm from "./ProfileDescription/ProfileDescriptionForm";
+import ProfileDescriptionForm from "./ProfileDescription/ProfileDescriptionForm.tsx";
 import { RootState } from '../../../types/types';
 import { AppDispatch } from "../../../Redux/redux-store";
 
@@ -15,7 +15,7 @@ type PropsType = {
   isOwner: boolean
 }
 
-const ProfileInfo: React.FC<PropsType> = ({ isOwner}) => {
+const ProfileInfo: React.FC<PropsType> = ({ isOwner }) => {
   const profile = useSelector((state: RootState) => state.profilePage.profile);
   const dispatch: AppDispatch = useDispatch();
   const [editMode, setEditMode] = useState(false);

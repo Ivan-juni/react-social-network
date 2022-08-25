@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./profile.module.css";
-import MyPosts from "./MyPosts/MyPosts";
+import MyPosts from "./MyPosts/MyPosts.tsx";
 import ProfileInfo from "./ProfileInfo/ProfileInfo.tsx";
 
 type PropsType = {

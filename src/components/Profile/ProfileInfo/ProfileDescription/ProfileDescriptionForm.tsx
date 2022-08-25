@@ -1,10 +1,18 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
 import React from "react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import styles from "./ProfileDescription.module.css";
 import * as Yup from "yup";
 import { saveProfile } from "../../../../Redux/profile-reducer.ts";
+import { profileType } from "../../../../types/types";
+import { AppDispatch } from "../../../../Redux/redux-store.ts";
 
-const ProfileDescriptionForm = ({ profile, dispatch, setEditMode }) => {
+type PropsType = {
+  profile: profileType
+  dispatch: AppDispatch
+  setEditMode: (arg0: boolean) => void
+}
+
+const ProfileDescriptionForm: React.FC<PropsType> = ({ profile, dispatch, setEditMode }) => {
   const initialValues = {
     fullName: profile.fullName,
     lookingForAJob: profile.lookingForAJob,
@@ -22,7 +30,9 @@ const ProfileDescriptionForm = ({ profile, dispatch, setEditMode }) => {
     },
   };
 
-  const onSubmit = (values, { setSubmitting, setStatus }) => {
+  type valuesType = typeof initialValues;
+
+  const onSubmit = (values: valuesType, { setSubmitting, setStatus } ) => {
     console.log("Form data", values);
     dispatch(saveProfile(values, setStatus, setSubmitting));
     setEditMode(false);
@@ -112,8 +122,8 @@ const ProfileDescriptionForm = ({ profile, dispatch, setEditMode }) => {
                           <div className={styles.error}>
                             <ErrorMessage name={"contacts." + key} />
                           </div>
-                        </div>
-                      }
+                        </div> 
+                      } 
                     />
                   );
                 })}
@@ -135,7 +145,12 @@ const ProfileDescriptionForm = ({ profile, dispatch, setEditMode }) => {
   );
 };
 
-const Contact = ({ contactTitle, contactValue }) => {
+type ContactPropsType = {
+  contactTitle: string
+  contactValue: any //! типизировать
+}
+
+const Contact: React.FC<ContactPropsType> = ({ contactTitle, contactValue }) => {
   return (
     <div className={styles.contact}>
       <b>{contactTitle}: </b>

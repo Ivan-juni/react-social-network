@@ -2,19 +2,21 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Profile from "./Profile.tsx";
 import { Navigate, useParams } from "react-router-dom";
-import { withAuthRedirectFuncionalComponent } from "../../hoc/withAuthRedirect";
+import { withAuthRedirectFuncionalComponent } from "../../hoc/withAuthRedirect.tsx";
 import { compose } from "redux";
 import {
   getStatusThunkCreator,
   profileThunkCreator,
 } from "../../Redux/profile-reducer.ts";
 //import withRouter from "../../hoc/withRouter";
+import { RootState } from '../../types/types';
+import { AppDispatch } from '../../Redux/redux-store.ts';
 
 const ProfileContainer = () => {
-  const dispatch = useDispatch();
-  const authorizedUser = useSelector((state) => state.auth.userId);
+  const dispatch: AppDispatch = useDispatch();
+  const authorizedUser = useSelector((state: RootState) => state.auth.userId);
 
-  let userId = useParams().userId;
+  let userId: number | null = Number(useParams().userId);
   useEffect(() => {
     if (!userId) {
       userId = authorizedUser;

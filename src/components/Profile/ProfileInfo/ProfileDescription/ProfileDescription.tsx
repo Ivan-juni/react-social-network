@@ -1,6 +1,6 @@
 import React from "react";
 import { AppDispatch } from "../../../../Redux/redux-store";
-import { profileType } from "../../../../types/types";
+import { contactsType, profileType } from "../../../../types/types";
 import styles from "./ProfileDescription.module.css";
 import ProfileStatus from "./ProfileStatus.tsx";
 
@@ -45,7 +45,7 @@ const ProfileDescription: React.FC<PropsType> = ({ profile, dispatch, isOwner, g
                 <Contact
                   key={key}
                   contactTitle={key}
-                  contactValue={profile.contacts[key]}
+                  contactValue={profile.contacts[key as keyof contactsType]}
                 />
               );
             }
@@ -63,7 +63,12 @@ const ProfileDescription: React.FC<PropsType> = ({ profile, dispatch, isOwner, g
   );
 };
 
-const Contact = ({ contactTitle, contactValue }) => {
+type ContactPropsType = {
+  contactTitle: string
+  contactValue: string | null
+}
+
+const Contact: React.FC<ContactPropsType> = ({ contactTitle, contactValue }) => {
   return (
     <div className={styles.contact}>
       <b>{contactTitle}: </b>

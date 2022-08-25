@@ -5,11 +5,13 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { profileActions } from "../../../Redux/profile-reducer.ts";
+import { AppDispatch } from "../../../Redux/redux-store.ts";
+import { RootState } from '../../../types/types';
 
-const PostForm = () => {
-  const dispatch = useDispatch();
+const PostForm: React.FC = () => {
+  const dispatch: AppDispatch = useDispatch();
 
-  const onSubmit = (values, { resetForm }) => {
+  const onSubmit = (values: {post: string}, { resetForm }) => {
     console.log("Form data", values);
     dispatch(profileActions.addPostActionCreator(values.post));
     resetForm({});
@@ -49,10 +51,10 @@ const PostForm = () => {
   );
 };
 
-const MyPosts = () => {
-  const profilePage = useSelector((state) => state.profilePage);
+const MyPosts: React.FC = () => {
+  const profilePage = useSelector((state: RootState) => state.profilePage);
 
-  let PostsData = profilePage.posts.map((p) => (
+  let PostsData: Array<JSX.Element> = profilePage.posts.map((p: { likes: number; text: string; id: React.Key | null | undefined; }) => (
     <Post likes={p.likes} text={p.text} key={p.id} postId={p.id} />
   ));
 

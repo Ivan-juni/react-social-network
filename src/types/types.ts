@@ -1,5 +1,6 @@
 // profile
 export type postType = {
+  map?: any
   id: number
   likes: number
   text: string

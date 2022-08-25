@@ -5,17 +5,30 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { loginTC } from "../../Redux/auth-reducer.ts";
+import { RootState } from "../../types/types";
 
-const LoginForm = ({ captcha }) => {
+type PropsType = {
+  captcha: string | null
+}
+
+const LoginForm: React.FC<PropsType> = ({ captcha }) => {
   const dispatch = useDispatch();
 
   const initialValues = {
     email: "",
     password: "",
     rememberMe: false,
+    captcha: null
   };
 
-  const onSubmit = (values, { setSubmitting, setStatus }) => {
+  type valuesType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: string | null 
+  }
+
+  const onSubmit = (values: valuesType, { setSubmitting, setStatus }) => {
     console.log("Form data", values);
     dispatch(
       loginTC(
@@ -104,9 +117,9 @@ const LoginForm = ({ captcha }) => {
   );
 };
 
-const Login = () => {
-  const captcha = useSelector((state) => state.auth.captchaURL);
-  if (useSelector((state) => state.auth.isAuth)) {
+const Login: React.FC = () => {
+  const captcha = useSelector((state: RootState) => state.auth.captchaURL);
+  if (useSelector((state: RootState) => state.auth.isAuth)) {
     return <Navigate to={"/profile"} />;
   }
   return (

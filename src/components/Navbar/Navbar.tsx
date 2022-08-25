@@ -1,10 +1,13 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./navbar.module.css";
 import avatar from "../../images/ava-icon.jpeg";
+import { useSelector } from 'react-redux';
+import { RootState } from '../../types/types';
 
-const Navbar = (props) => {
-  let state = props.friends;
-  let followed = props.followed;
+const Navbar: React.FC = () => {
+  //const friends = useSelector((state: RootState) => state.sidebar.friends);
+  const followed = useSelector((state: RootState) => state.usersPage.followingNow);
 
   let friendsDataTest = followed.map((f) => {
     return (
@@ -17,7 +20,7 @@ const Navbar = (props) => {
     );
   });
 
-  // let friendsData = state.map((f) => {
+  // let friendsData = friends.map((f) => {
   //   return (
   //     <div className={styles.friend} key={f.id}>
   //       <img src={f.avatar} alt="avatar" className={styles.avatar} />
