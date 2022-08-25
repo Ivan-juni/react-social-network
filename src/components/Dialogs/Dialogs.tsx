@@ -8,7 +8,7 @@ import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
 import { withAuthRedirectFuncionalComponent } from "../../hoc/withAuthRedirect";
 import { AppDispatch } from "../../Redux/redux-store";
-import { RootState } from '../../types/types';
+import { RootState, userDialogTypeA } from '../../types/types';
 
 const MessageForm = () => {
   const dispatch: AppDispatch = useDispatch();

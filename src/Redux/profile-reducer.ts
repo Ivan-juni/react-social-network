@@ -1,13 +1,13 @@
-import { ThunkAction } from "redux-thunk";
-import { profileAPISamurai } from "../api/api.ts";
+import { ResultCodesEnum } from "../api/api.ts";
+import { profileAPI } from "../api/profile-api.ts";
 import {postType, profileType, photosType, RootState} from "../types/types";
-import { InferActionsTypes } from "./redux-store";
+import { BaseThunkType, InferActionsTypes } from "./redux-store";
 
-const ADD_POST = "profile/ADD-POST";
-const SET_USER_PROFILE = "profile/SET-USER-PROFILE";
-const SET_STATUS = "profile/SET-STATUS";
-const DELETE_POST = "profile/DELETE-POST";
-const SET_PHOTO = "profile/SET-PHOTO";
+const ADD_POST = "SN/PROFILE/ADD-POST";
+const SET_USER_PROFILE = "SN/PROFILE/SET-USER-PROFILE";
+const SET_STATUS = "SN/PROFILE/SET-STATUS";
+const DELETE_POST = "SN/PROFILE/DELETE-POST";
+const SET_PHOTO = "SN/PROFILE/SET-PHOTO";
 
 let initialState = {
   posts: [
@@ -66,54 +66,51 @@ const profileReducer = (state = initialState, action: actionTypes):initialStateT
 type actionTypes = InferActionsTypes<typeof profileActions>;
 
 export const profileActions = {
-  addPostActionCreator : (post: string) => ({type: ADD_POST, post}) as const,
-  setUserProfile : (profile: profileType) => ({type: SET_USER_PROFILE, profile}) as const,
-  setStatusAC : (status: string) => ({ type: SET_STATUS, status }) as const,
-  setPhotoSuccessAC : (photo: photosType) => ({type: SET_PHOTO, photo }) as const,
-  deletePostAC : (postId: number)=> ({type: DELETE_POST, postId }) as const,
+  addPostActionCreator : (post: string) => ({type: ADD_POST, post} as const),
+  setUserProfile : (profile: profileType) => ({type: SET_USER_PROFILE, profile} as const),
+  setStatusAC : (status: string) => ({ type: SET_STATUS, status } as const),
+  setPhotoSuccessAC : (photo: photosType) => ({type: SET_PHOTO, photo } as const),
+  deletePostAC : (postId: number)=> ({type: DELETE_POST, postId } as const),
 }
 
 // * thunks *
-type ThunkType = ThunkAction<Promise<void>, RootState, unknown, actionTypes>
+type ThunkType = BaseThunkType<actionTypes>
 
 export const profileThunkCreator = (userId: number): ThunkType => async (dispatch) => {
-  const data = await profileAPISamurai.getProfile(userId);
+  const data = await profileAPI.getProfile(userId);
 
   dispatch(profileActions.setUserProfile(data));
 };
 
 export const getStatusThunkCreator = (userId: number): ThunkType => async (dispatch) => {
-  const response = await profileAPISamurai.getStatus(userId);
+  const data = await profileAPI.getStatus(userId);
 
-  dispatch(profileActions.setStatusAC(response.data));
+  dispatch(profileActions.setStatusAC(data));
 };
 
 export const updateStatusThunkCreator = (status: string): ThunkType => async (dispatch) => {
-  const response = await profileAPISamurai.updateStatus(status);
+  const data = await profileAPI.updateStatus(status);
 
-  if (response.data.resultCode === 0) {
+  if (data.resultCode === ResultCodesEnum.Sucess) {
     dispatch(profileActions.setStatusAC(status));
   } 
 };
 
 export const setPhoto = (photo: File): ThunkType => async (dispatch) => {
-  const response = await profileAPISamurai.setPhoto(photo);
+  const data = await profileAPI.setPhoto(photo);
 
-  if (response.data.resultCode === 0) {
-    dispatch(profileActions.setPhotoSuccessAC(response.data.data.photos));
+  if (data.resultCode === ResultCodesEnum.Sucess) {
+    dispatch(profileActions.setPhotoSuccessAC(data.data.photos));
   } 
-  // else {
-  //   alert("Error: result code: ", response.data.resultCode);
-  // }
 };
 
 export const saveProfile = (profile: profileType, setStatus: (arg0: string) => void, setSubmitting: (arg0: boolean) => void): ThunkType => async (
   dispatch,
   getState
 ) => {
-  const response = await profileAPISamurai.saveProfile(profile);
+  const data = await profileAPI.saveProfile(profile);
 
-  if (response.data.resultCode === 0) {
+  if (data.resultCode === ResultCodesEnum.Sucess) {
     const userId = getState().auth.userId;
     if (userId != null) {
       dispatch(profileThunkCreator(userId));
@@ -122,7 +119,7 @@ export const saveProfile = (profile: profileType, setStatus: (arg0: string) => v
       throw new Error("userId can't be null")
     }
   } else {
-    setStatus(response.data.messages);
+    setStatus(data.messages);
     setSubmitting(false);
   }
 };

@@ -44,7 +44,7 @@ export const dialogsActions = {
   sendMessageActionCreator : (message: string) => ({
     type: SEND_MESSAGE,
     message,
-  }) as const
+  } as const)
 }
 
 export default dialogsReducer;

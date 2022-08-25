@@ -3,14 +3,16 @@ import {
   combineReducers,
   legacy_createStore as createStore,
   compose,
+  Action,
 } from "redux";
 import profileReducer from "./profile-reducer.ts";
 import dialogsReducer from "./dialogs-reducer.ts";
 import sidebarReducer from "./sidebar-reducer.ts";
 import usersReducer from "./users-reducer.ts";
 import authReducer from "./auth-reducer.ts";
-import thunkMiddleware from "redux-thunk";
+import thunkMiddleware, { ThunkAction } from "redux-thunk";
 import appReducer from "./app-reducer.ts";
+import { RootState } from "../types/types";
 
 let rootReducer = combineReducers({
   profilePage: profileReducer,
@@ -27,6 +29,8 @@ export type AppDispatch = typeof store.dispatch;
 
 type PropertiesTypes<T> = T extends {[key: string]: infer U} ? U : never;
 export type InferActionsTypes<T extends {[key: string]: (...args: any[]) => any}> = ReturnType<PropertiesTypes<T>>
+
+export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, RootState, unknown, A>
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

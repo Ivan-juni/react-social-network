@@ -1,10 +1,10 @@
-import { ThunkAction } from "redux-thunk";
-import { authAPISamurai, ResultCodesEnum, securityAPI } from "../api/api.ts";
-import { RootState } from "../types/types";
-import { InferActionsTypes } from "./redux-store";
+import { ResultCodesEnum} from "../api/api.ts";
+import {authAPI} from "../api/auth-api.ts";
+import { securityAPI } from "../api/security-api.ts";
+import { BaseThunkType, InferActionsTypes } from "./redux-store";
 
-const SET_USER_DATA = "auth/SET-USER-DATA";
-const GET_CAPTCHA_URL_SUCCESS = "auth/GET-CAPTCHA-URL-SUCCESS";
+const SET_USER_DATA = "SN/AUTH/SET-USER-DATA";
+const GET_CAPTCHA_URL_SUCCESS = "SN/AUTH/GET-CAPTCHA-URL-SUCCESS";
 
 let initialState = {
   userId: null as number | null,
@@ -35,20 +35,20 @@ export const authActions = {
   setAuthUserData : (userId: number | null, login: string | null, email:string | null, isAuth: boolean, captchaURL: string | null) => ({
     type: SET_USER_DATA,
     payload: { userId, login, email, isAuth, captchaURL }
-  }) as const,
+  } as const),
   getCaptchaUrlSuccess : (captchaURL:string) => ({
     type: GET_CAPTCHA_URL_SUCCESS,
     payload: { captchaURL }
-  }) as const
+  } as const) 
 }
 
 // * thunks *
-type ThunkType = ThunkAction<Promise<void>, RootState, unknown, actionTypes>
+type ThunkType = BaseThunkType<actionTypes>
 
 export const authThunkCreator = (): ThunkType => async (dispatch) => {
-  const data = await authAPISamurai
+  const data = await authAPI
     .getAuth()
-    .catch((err) => alert(err.message));
+    .catch((err: { message: string }) => alert(err.message));
   if (data.resultCode === ResultCodesEnum.Sucess) { 
     //console.log("authThunkCreator");
     dispatch(
@@ -67,9 +67,9 @@ export const loginTC = (
   setStatus: (arg0: string) => void,
   setSubmitting: (arg0: boolean) => void
 ): ThunkType => async (dispatch) => {
-  const response = await authAPISamurai
+  const response = await authAPI
     .login(email, password, rememberMe, captcha)
-    .catch((err) => {
+    .catch((err: { message: string }) => {
       alert(err.message);
     });
   if (response.data.resultCode === ResultCodesEnum.Sucess) {
@@ -85,7 +85,7 @@ export const loginTC = (
 };
 
 export const logoutTC = (): ThunkType => async (dispatch) => {
-  const response = await authAPISamurai.logout();
+  const response = await authAPI.logout();
 
   if (response.data.resultCode === ResultCodesEnum.Sucess) {
     //console.log("logoutThunkCreator");

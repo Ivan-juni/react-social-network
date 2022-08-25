@@ -1,19 +1,15 @@
 import { Dispatch } from "redux";
-import { ThunkAction } from "redux-thunk";
-import { RootState } from "../types/types";
 import { authThunkCreator } from "./auth-reducer.ts";
 import { InferActionsTypes } from "./redux-store";
 //import { getUsersThunkCreator } from "./users-reducer";
 
-const INITIALIZED = "app/SET_INITIALIZED";
+const INITIALIZED = "SN/APP/SET_INITIALIZED";
 
-export type initialStateType = {
-  initialized: boolean
+let initialState = {
+  initialized: false
 }
 
-let initialState: initialStateType = {
-  initialized: false,
-};
+export type initialStateType = typeof initialState;
 
 const appReducer = (state = initialState, action: actionTypes): initialStateType => {
   switch (action.type) {
@@ -30,7 +26,7 @@ const appReducer = (state = initialState, action: actionTypes): initialStateType
 type actionTypes = InferActionsTypes<typeof appActions>
 
 export const appActions = {
-  setInitialized : ()=> ({ type: INITIALIZED }) as const,
+  setInitialized : ()=> ({ type: INITIALIZED } as const),
 }
 
 // * thunks *
