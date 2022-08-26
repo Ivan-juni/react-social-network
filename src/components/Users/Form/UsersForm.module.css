@@ -1,0 +1,39 @@
+.form__wrapper{
+    margin: 0 auto;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    grid-gap: 10px;
+    margin-bottom: 20px;
+}
+.fields{
+    display: flex;
+    justify-content: space-between;
+}
+.submitBtn{
+    padding: 10px;
+    display: flex;
+}
+.btn{
+    width: 100px;
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 2px solid white;
+    margin: 0 auto;
+}
+.fields input{
+    padding: 5px;
+    width: 150px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+.fields select{
+    padding: 5px;
+    width: 120px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid black;
+}

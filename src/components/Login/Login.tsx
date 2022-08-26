@@ -28,8 +28,13 @@ const LoginForm: React.FC<PropsType> = ({ captcha }) => {
     captcha: string | null 
   }
 
-  const onSubmit = (values: valuesType, { setSubmitting, setStatus }) => {
-    console.log("Form data", values);
+  type FormikType = {
+    setSubmitting : (isSubmitting: boolean) => void
+    setStatus: (arg0: string) => void
+  }
+
+  const onSubmit = (values: valuesType, { setSubmitting, setStatus } : FormikType)=> {
+    //console.log("Form data", values);
     dispatch(
       loginTC(
         values.email,

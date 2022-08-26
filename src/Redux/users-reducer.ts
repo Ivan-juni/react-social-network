@@ -1,7 +1,8 @@
 import { ResultCodesEnum } from "../api/api.ts";
 import { usersAPI } from "../api/users-api.ts";
-import { userType } from "../types/types";
+import { FilterType, userType } from "../types/types";
 import { BaseThunkType, InferActionsTypes } from "./redux-store";
+import { getFriendsTC } from "./sidebar-reducer";
 
 const FOLLOW = "SN/USERS/FOLLOW";
 const SET_USERS = "SN/USERS/SET-USERS";
@@ -10,6 +11,7 @@ const UPDATE_CURRENT_PAGE = "SN/USERS/UPDATE-CURRENT-PAGE";
 const TOGGLE_IS_FETCHING = "SN/USERS/TOGGLE-IS-FETCHING";
 const TOGGLE_IS_FOLLOWING_NOW = "SN/USERS/TOGGLE-IS-FOLLOWING-NOW";
 const FOLLOWING_NOW_CHECKOUT = "SN/USERS/FOLLOWING-NOW-CHECKOUT";
+const SET_FILTER = "SN/USERS/SET-FILTER";
 
 let initialState = {
   users: [] as Array<userType>,
@@ -18,7 +20,10 @@ let initialState = {
   currentPage: 1 as number,
   isFetching: false as boolean,
   isFollowingInProgress: [] as Array<number>, // array of user's id
-  followingNow: [] as Array<userType>,
+  filter: {
+    term: "",
+    friend: null 
+  } as FilterType
 };
 
 type initialStateType = typeof initialState;
@@ -35,15 +40,6 @@ const usersReducer = (state = initialState, action: actionTypes): initialStateTy
           return u;
         }),
       };
-    case FOLLOWING_NOW_CHECKOUT:
-      let followedUsers = state.users.filter((u) => u.followed === true);
-
-      console.log(followedUsers, "followedUsers");
-      console.log(state.followingNow, "followingNow");
-      return {
-        ...state,
-        followingNow: [...followedUsers],
-      };
     case SET_USERS:
       return {
         ...state,
@@ -55,6 +51,11 @@ const usersReducer = (state = initialState, action: actionTypes): initialStateTy
       return {
         ...state,
         currentPage: action.page,
+      };
+    case SET_FILTER:
+      return {
+        ...state,
+        filter: action.payload,
       };
     case TOGGLE_IS_FETCHING:
       return {
@@ -78,9 +79,9 @@ type actionTypes = InferActionsTypes<typeof usersActions>
 export const usersActions = {
   follow : (userId: number) => ({type: FOLLOW, userId} as const),
   setUsers : (users: Array<userType>) => ({type: SET_USERS, users} as const), // users from server
-  followingNowAC : ()=> ({type: FOLLOWING_NOW_CHECKOUT } as const),
   setUsersCount : (usersCount: number) => ({type: SET_USERS_COUNT, usersCount } as const),
   updateNewCurrentPage : (page: number) => ({type: UPDATE_CURRENT_PAGE, page } as const),
+  setFilter : (filter: FilterType) => ({type: SET_FILTER, payload: filter } as const),
   toggleIsFetching : (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching } as const),
   toggleIsFollowingInProgress : (isFetching: boolean, userId: number) => ({type: TOGGLE_IS_FOLLOWING_NOW, isFetching, userId } as const),
 }
@@ -90,15 +91,21 @@ type ThunkType = BaseThunkType<actionTypes>
 // type DispatchType = Dispatch<actionTypes>
 // type GetStateType = () => RootState
 
-export const getUsersThunkCreator = (currentPage = 1, pageSize = 5): ThunkType  => async (
+export const getUsersThunkCreator = (currentPage = 1, pageSize = 5, filter: FilterType, setStatus: (arg0: string) => void,
+  //setSubmitting: (isSubmitting: boolean) => void
+  ): ThunkType  => async (
   dispatch
 ) => {
   dispatch(usersActions.toggleIsFetching(true));
-  const data = await usersAPI.getUsers(currentPage, pageSize);
+  dispatch(usersActions.updateNewCurrentPage(currentPage));
+  dispatch(usersActions.setFilter(filter));
+
+  const data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend);
   dispatch(usersActions.toggleIsFetching(false));
   dispatch(usersActions.setUsersCount(data.totalCount));
   dispatch(usersActions.setUsers(data.items));
-  dispatch(usersActions.followingNowAC());
+  //setStatus(data.messages);
+  // setSubmitting(false);
 };
 
 export const followThunkCreator = (userId: number): ThunkType => async (dispatch) => {
@@ -107,9 +114,9 @@ export const followThunkCreator = (userId: number): ThunkType => async (dispatch
   const data = await usersAPI.follow(userId);
 
   if (data.resultCode === ResultCodesEnum.Sucess) {
-    dispatch(usersActions.follow(userId));
-    //dispatch(followingNowAC());  
+    dispatch(usersActions.follow(userId)); 
   }
+  dispatch(getFriendsTC());
   dispatch(usersActions.toggleIsFollowingInProgress(false, userId));
 };
 
@@ -120,8 +127,8 @@ export const unFollowThunkCreator = (userId: number): ThunkType => async (dispat
 
   if (data.resultCode === ResultCodesEnum.Sucess) {
     dispatch(usersActions.follow(userId));
-    //dispatch(followingNowAC());
   }
+  dispatch(getFriendsTC());
   dispatch(usersActions.toggleIsFollowingInProgress(false, userId));
 };
 

@@ -3,7 +3,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import styles from "./ProfileDescription.module.css";
 import * as Yup from "yup";
 import { saveProfile } from "../../../../Redux/profile-reducer.ts";
-import { profileType } from "../../../../types/types";
+import { FormikType, profileType } from "../../../../types/types";
 import { AppDispatch } from "../../../../Redux/redux-store.ts";
 
 type PropsType = {
@@ -32,7 +32,7 @@ const ProfileDescriptionForm: React.FC<PropsType> = ({ profile, dispatch, setEdi
 
   type valuesType = typeof initialValues;
 
-  const onSubmit = (values: valuesType, { setSubmitting, setStatus } ) => {
+  const onSubmit = (values: valuesType, { setSubmitting, setStatus }: FormikType ) => {
     console.log("Form data", values);
     dispatch(saveProfile(values, setStatus, setSubmitting));
     setEditMode(false);

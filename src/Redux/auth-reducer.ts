@@ -65,7 +65,7 @@ export const loginTC = (
   rememberMe: boolean,
   captcha: string | null,
   setStatus: (arg0: string) => void,
-  setSubmitting: (arg0: boolean) => void
+  setSubmitting: (isSubmitting: boolean) => void
 ): ThunkType => async (dispatch) => {
   const response = await authAPI
     .login(email, password, rememberMe, captcha)

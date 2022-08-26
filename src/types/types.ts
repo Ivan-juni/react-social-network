@@ -61,6 +61,11 @@ export type userType = {
   photos: photosType
 }
 
+export type FilterType = {
+  term: string
+  friend: null | boolean
+}
+
 export type usersPageType = {
   pageSize: number
   usersCount: number
@@ -69,8 +74,8 @@ export type usersPageType = {
   isFetching: boolean,
   isFollowingInProgress: Array<number>, // array of user's id
   followingNow: Array<userType>,
+  filter: FilterType
 }
-
 // sidebar
 export type friendsType = {
   id: number
@@ -104,4 +109,10 @@ export interface RootState {
   sidebar: sidebarType
   auth: authType
   app: appType
+}
+
+// Formik
+export type FormikType = {
+  setSubmitting : (isSubmitting: boolean) => void
+  setStatus: (arg0: string) => void
 }

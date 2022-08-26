@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./navbar.module.css";
 import avatar from "../../images/ava-icon.jpeg";
-import { useSelector } from 'react-redux';
+import { AppDispatch } from "../../Redux/redux-store";
+import { useDispatch, useSelector } from 'react-redux';
+import { getFriendsTC } from "../../Redux/sidebar-reducer";
 import { RootState } from '../../types/types';
 
 const Navbar: React.FC = () => {
-  //const friends = useSelector((state: RootState) => state.sidebar.friends);
-  const followed = useSelector((state: RootState) => state.usersPage.followingNow);
+  const friends = useSelector((state: RootState) => state.sidebar.friends);
+  const dispatch: any = useDispatch();
 
-  let friendsDataTest = followed.map((f) => {
+  useEffect(()=> {
+    dispatch(getFriendsTC());
+  }, [])
+  
+  let friendsDataTest = friends.map((f) => {
     return (
-      <NavLink to={"/profile/" + f.id} className={styles.link}>
+      <NavLink to={"/profile/" + f.id} className={styles.link} key={f.id}>
         <div className={styles.friend} key={f.id}>
           <img src={avatar} alt="avatar" className={styles.avatar} />
           <span>{f.name}</span>
@@ -19,15 +25,6 @@ const Navbar: React.FC = () => {
       </NavLink>
     );
   });
-
-  // let friendsData = friends.map((f) => {
-  //   return (
-  //     <div className={styles.friend} key={f.id}>
-  //       <img src={f.avatar} alt="avatar" className={styles.avatar} />
-  //       <span>{f.name}</span>
-  //     </div>
-  //   );
-  // });
 
   return (
     <div className={styles.wrapper}>
@@ -95,7 +92,7 @@ const Navbar: React.FC = () => {
           </li>
         </ul>
         <div className={styles.wrapper__friends}>
-          <div className={styles.friends__caption}>Friends(followed users)</div>
+          <div className={styles.friends__caption}>Followed users</div>
           <div className={styles.friends}>{friendsDataTest}</div>
         </div>
       </nav>
