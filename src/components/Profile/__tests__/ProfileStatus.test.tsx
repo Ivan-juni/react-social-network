@@ -2,8 +2,8 @@ import { act } from "@testing-library/react";
 import React from "react";
 import { Provider } from "react-redux";
 import { create } from "react-test-renderer";
-import store from "../../../Redux/redux-store";
-import ProfileStatus from "../ProfileInfo/ProfileStatus";
+import store from "../../../Redux/redux-store.ts";
+import ProfileStatus from '../ProfileInfo/ProfileDescription/ProfileStatus';
 
 describe("ProfileStatus component", () => {
   test("should be span, shouldn't input", () => {

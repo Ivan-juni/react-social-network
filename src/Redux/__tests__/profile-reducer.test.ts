@@ -1,8 +1,5 @@
-const {
-  default: profileReducer,
-  addPostActionCreator,
-  deletePostAC,
-} = require("../profile-reducer");
+import { postType, profileType } from "../../types/types";
+import { default as profileReducer,profileActions } from "../profile-reducer";
 
 let state = {
   posts: [
@@ -13,12 +10,14 @@ let state = {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maiores quaerat sit corporis mollitia, id dolore reprehenderit. Totam, pariatur nisi?",
     },
     { id: 2, likes: 3, text: "Hello, everybody!" },
-  ],
+  ] as Array<postType>,
+  profile: null as profileType | null,
+  status: "" as string,
 };
 
 test("new post length should be incremented", () => {
   // 1. test data
-  let action = addPostActionCreator("post");
+  let action = profileActions.addPostActionCreator("post");
 
   // 2. action
   let newState = profileReducer(state, action);
@@ -29,7 +28,7 @@ test("new post length should be incremented", () => {
 
 test("new post text should be correct", () => {
   // 1. test data
-  let action = addPostActionCreator("post");
+  let action = profileActions.addPostActionCreator("post");
 
   // 2. action
   let newState = profileReducer(state, action);
@@ -40,7 +39,7 @@ test("new post text should be correct", () => {
 
 test("length should be decremented after deleting", () => {
   // 1. test data
-  let action = deletePostAC(1);
+  let action = profileActions.deletePostAC(1);
 
   // 2. action
   let newState = profileReducer(state, action);

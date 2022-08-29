@@ -10,7 +10,6 @@ const SET_USERS_COUNT = "SN/USERS/SET-USERS-COUNT";
 const UPDATE_CURRENT_PAGE = "SN/USERS/UPDATE-CURRENT-PAGE";
 const TOGGLE_IS_FETCHING = "SN/USERS/TOGGLE-IS-FETCHING";
 const TOGGLE_IS_FOLLOWING_NOW = "SN/USERS/TOGGLE-IS-FOLLOWING-NOW";
-const FOLLOWING_NOW_CHECKOUT = "SN/USERS/FOLLOWING-NOW-CHECKOUT";
 const SET_FILTER = "SN/USERS/SET-FILTER";
 
 let initialState = {
@@ -26,7 +25,7 @@ let initialState = {
   } as FilterType
 };
 
-type initialStateType = typeof initialState;
+export type initialStateType = typeof initialState;
 
 const usersReducer = (state = initialState, action: actionTypes): initialStateType  => {
   switch (action.type) {
