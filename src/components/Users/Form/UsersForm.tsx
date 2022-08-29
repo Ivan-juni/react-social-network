@@ -1,8 +1,9 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React from 'react';
 import  * as Yup from 'yup';
-import { FilterType, FormikType } from '../../../types/types';
+import { FilterType, FormikType, RootState } from '../../../types/types';
 import styles from "./UsersForm.module.css";
+import { useSelector } from 'react-redux';
 
 
 type PropsType = {
@@ -10,19 +11,15 @@ type PropsType = {
 }
 
 const UsersForm: React.FC<PropsType> = React.memo(({ onFilterChanged }) => {
-
-    const validationSchema = Yup.object({
-        //term: Yup.string().required("Required field"),
-    });
+    const filter = useSelector((state: RootState) => state.usersPage.filter)
 
     type FormType = {
         term: string
         friend: string
     }
-
     const initialValues = {
-        term: '',
-        friend: 'null'
+        term: filter.term,
+        friend: String(filter.friend)
     };
 
     const onSubmit = (values: FormType, { setSubmitting, setStatus } : FormikType) => {
@@ -37,8 +34,8 @@ const UsersForm: React.FC<PropsType> = React.memo(({ onFilterChanged }) => {
 
     return (
         <Formik
+        enableReinitialize
             initialValues={initialValues}
-            validationSchema={validationSchema}
             onSubmit={onSubmit}
         >
         {(formik) => {

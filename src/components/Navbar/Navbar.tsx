@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
     return (
       <NavLink to={"/profile/" + f.id} className={styles.link} key={f.id}>
         <div className={styles.friend} key={f.id}>
-          <img src={avatar} alt="avatar" className={styles.avatar} />
+          <img src={f.photos.small ? f.photos.small : avatar} alt="avatar" className={styles.avatar} />
           <span>{f.name}</span>
         </div>
       </NavLink>

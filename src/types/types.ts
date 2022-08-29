@@ -84,7 +84,7 @@ export type friendsType = {
 }
 
 type sidebarType = {
-  friends: Array<friendsType>
+  friends: Array<userType>
 }
 
 // auth
