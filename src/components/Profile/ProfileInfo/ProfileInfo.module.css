@@ -58,3 +58,6 @@
     display: block;
     height: 150px;
 }
+.description{
+    min-width: 370px;
+}

@@ -26,7 +26,7 @@ const Post: React.FC<PropsType> = ({postId, text, likes}) => {
         </div>
         <div className={styles.options}>
           <span className={styles.likes}>
-            Likes: <span className={styles.likes}>{likes}</span>
+            Likes: <strong>{likes}</strong>
           </span>
           <button onClick={deletePost}>Delete post</button>
         </div>

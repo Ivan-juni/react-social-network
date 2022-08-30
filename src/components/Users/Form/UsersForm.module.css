@@ -1,27 +1,35 @@
 .form__wrapper{
     margin: 0 auto;
-    width: 300px;
     display: flex;
     flex-direction: column;
     height: 100%;
     grid-gap: 10px;
     margin-bottom: 20px;
+    align-items: center;
 }
 .fields{
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    height: 80px;
 }
 .submitBtn{
-    padding: 10px;
     display: flex;
+    width: 150px;
 }
 .btn{
-    width: 100px;
+    width: 150px;
     font-size: 20px;
-    padding: 5px;
+    height: 35px;
     border-radius: 10px;
-    border: 2px solid white;
+    border: 1px solid black;
     margin: 0 auto;
+    color: white;
+    background-color: #1890ff;
+}
+.btn:hover{
+    transition: 0.3s;
+    background-color: #188fffa9;
 }
 .fields input{
     padding: 5px;
@@ -29,10 +37,12 @@
     font-size: 16px;
     border-radius: 10px;
     border: 1px solid black;
+    height: 35px;
 }
 .fields select{
     padding: 5px;
-    width: 120px;
+    width: 150px;
+    height: 35px;
     font-size: 16px;
     border-radius: 10px;
     border: 1px solid black;

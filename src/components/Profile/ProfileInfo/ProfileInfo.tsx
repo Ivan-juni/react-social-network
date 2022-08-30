@@ -62,7 +62,7 @@ const ProfileInfo: React.FC<PropsType> = ({ isOwner }) => {
               )}
             </div>
           </div>
-          <div className="description">
+          <div className={styles.description}>
             {editMode ? (
               <ProfileDescriptionForm
                 profile={profile}

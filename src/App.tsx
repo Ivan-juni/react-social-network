@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import 'antd/dist/antd.css';
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar.tsx";
@@ -12,9 +13,13 @@ import Preloader from "./components/common/Preloader/Preloader.tsx";
 import Footer from "./components/Footer/Footer.tsx";
 import { AppDispatch } from "./Redux/redux-store.ts"
 import { RootState } from './types/types';
+import { LaptopOutlined, UserOutlined } from '@ant-design/icons';
+import { Breadcrumb, Layout} from 'antd';
+
+const { Content } = Layout;
 
 const Login = withSuspense(
-  React.lazy(() => import("./components/Login/Login"))
+  React.lazy(() => import("./components/Login/Login.tsx"))
 );
 const Dialogs = withSuspense(
   React.lazy(() => import("./components/Dialogs/Dialogs.tsx"))
@@ -24,7 +29,7 @@ const UsersContainer = withSuspense(
 );
 
 
-const App = () => {
+const App: React.FC = () => {
   // Редакс хуки
   const isAuth = useSelector((state: RootState) => state.auth.isAuth);
   const initialized = useSelector((state: RootState) => state.app.initialized);
@@ -46,22 +51,32 @@ const App = () => {
     return <Preloader />;
   }
   return (
-    <div className="app">
-      <div className="app__wrapper">
+    <div className="wrapper">
+      <Layout>
         <Header />
-        <Navbar />
-        <div className="wrapper__content">
-          <Routes>
-            <Route path="/" element={<Navigate to="/profile" />} />
-            <Route path="/profile/:userId" element={<ProfileContainer />} />
-            <Route path="/profile/*" element={<ProfileContainer />} />
-            <Route path="/dialogs/*" element={<Dialogs />} />
-            <Route path="/users/*" element={<UsersContainer />} />
-            <Route path="/login/*" element={<Login />} />
-          </Routes>
-        </div>
+        <Layout>
+          <Navbar />
+          <Layout>
+            <Content
+              className="site-layout-background"
+              style={{
+                margin: 0,
+                minHeight: 280,
+              }}
+            >
+                <Routes>
+                  <Route path="/" element={<Navigate to="/profile" />} />
+                  <Route path="/profile/:userId" element={<ProfileContainer />} />
+                  <Route path="/profile/*" element={<ProfileContainer />} />
+                  <Route path="/dialogs/*" element={<Dialogs />} />
+                  <Route path="/users/*" element={<UsersContainer />} />
+                  <Route path="/login/*" element={<Login />} />
+                </Routes>
+            </Content>
+          </Layout>
+        </Layout>
         <Footer />
-      </div>
+      </Layout>
     </div>
   );
 };

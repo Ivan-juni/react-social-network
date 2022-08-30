@@ -1,10 +1,8 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React from 'react';
-import  * as Yup from 'yup';
 import { FilterType, FormikType, RootState } from '../../../types/types';
 import styles from "./UsersForm.module.css";
 import { useSelector } from 'react-redux';
-
 
 type PropsType = {
   onFilterChanged: (filter: FilterType) => void

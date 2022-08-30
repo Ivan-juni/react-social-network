@@ -1,8 +1,8 @@
 import { ResultCodesEnum } from "../api/api.ts";
 import { usersAPI } from "../api/users-api.ts";
 import { FilterType, userType } from "../types/types";
-import { BaseThunkType, InferActionsTypes } from "./redux-store";
-import { getFriendsTC } from "./sidebar-reducer";
+import { BaseThunkType, InferActionsTypes } from "./redux-store.ts";
+import { getFriendsTC } from "./sidebar-reducer.ts";
 
 const FOLLOW = "SN/USERS/FOLLOW";
 const SET_USERS = "SN/USERS/SET-USERS";

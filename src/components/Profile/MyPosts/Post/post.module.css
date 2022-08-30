@@ -4,7 +4,7 @@
 .vline{
     min-height: 50px;
     min-width: 3px;
-    background-color:#d14734;
+    background-color:#1890ff;
     display: block;
     margin-right: 10px;
     opacity: 1;
@@ -19,9 +19,6 @@
 .post__block{
     display: flex;
     margin-bottom: 10px;
-}
-.likes{
-    display: block;
 }
 .options{
     display: flex;
@@ -44,5 +41,5 @@
     color: black;
 }
 .likes{
-    color: red;
+    color: #1890ff;
 }

@@ -9,7 +9,7 @@ let Preloader: React.FC = () => {
         width: "64px",
         height: "64px",
         margin: "0 auto",
-        marginTop: "250px",
+        marginTop: "150px",
       }}
       role={"main"}
     >

@@ -1,6 +1,6 @@
 import { userType } from "../types/types";
 import { BaseThunkType, InferActionsTypes } from "./redux-store";
-import { usersAPI } from '../api/users-api';
+import { usersAPI } from '../api/users-api.ts';
 
 const SET_FRIENDS = 'SET-FRIENDS';
 

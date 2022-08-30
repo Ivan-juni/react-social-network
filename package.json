@@ -15,6 +15,7 @@
     "@types/node": "^18.7.8",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "antd": "^4.22.8",
     "axios": "^0.27.2",
     "cra-template-typescript": "^1.2.0",
     "dotenv": "^16.0.1",

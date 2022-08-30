@@ -1,16 +1,18 @@
 .wrapper{
     grid-area: h;
-    background-color: #fdd6b6;
+    background-color: #001529;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 .logo{
     margin: 20px;
 }
 .login{
     text-decoration: none;
-    color: rgb(0, 0, 0);
+    color: black;
     font-size: 32px;
     margin-right: 20px;
 }
@@ -19,7 +21,7 @@
     align-items: center;
 }
 .loginName{
-    color: rgb(0, 0, 0);
+    color: black;
     font-size: 32px;
 }
 .login:hover {
@@ -40,7 +42,7 @@
 
 .navigation {
   width: 100%;
-  background-color: black;
+  background-color: #f0f2f5;
 }
 
 .logoutImg {
@@ -68,16 +70,16 @@
   float: right;
   padding: 12px;
   margin: 15px;
-  color: white;
-  width: 25px;
-  background-color: black;
+  color: #001529;
+  width: 50px;
+  background-color: #f0f2f5;
   transition: width .35s;
   -webkit-transition: width .35s;
   overflow: hidden
 }
 
 .logoutButton:hover {
-  width: 100px;
+  width: 125px;
 }
 
 .logoutButton:hover .logoutText{

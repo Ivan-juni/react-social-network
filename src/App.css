@@ -9,6 +9,7 @@
   grid-template-columns: 2fr 10fr;
   grid-gap: 10px;
   padding-top: 10px;
+  margin-bottom: 10px;
 }
 .wrapper__content{
   grid-area: c;
@@ -16,4 +17,9 @@
   text-decoration: none;
   color: rgb(0, 0, 0);
   font-size: 32px;
+}
+.wrapper{
+  padding-top: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
 }

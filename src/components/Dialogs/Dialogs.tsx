@@ -40,7 +40,7 @@ const MessageForm: React.FC = () => {
             className={styles.field}
           ></Field>
           <button className={styles.button__send} type={"submit"}>
-            Send message
+            Send
           </button>
         </div>
       </Form>

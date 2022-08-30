@@ -7,6 +7,7 @@
     margin-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
+    font-size: 24px;
 }
 .user {
     display: flex;
@@ -20,16 +21,16 @@
 .vline{
     transform: rotate(180deg);
     opacity: 1;
-    border: 1px solid blue;
+    border: 1px solid #1890ff;
 }
 .hline{
     opacity: 1;
-    border: 1px solid blue;
+    border: 1px solid #1890ff;
     width: 100%;
 }
 .active{
     text-decoration: none;
-    color: rgb(12, 0, 179);
+    color: #1890ff;
 }
 .navlink {
     text-decoration: none;
@@ -49,7 +50,6 @@
     margin-right: 30px;
 }
 .messages__new textarea, .field{
-    width: 600px;
     height: 50px;
     border-radius: 18px;
     border: 1px solid black;
@@ -66,11 +66,16 @@
     max-width: 622px;
 }
 .button__send{
-    width: 150px;
-    height: 30px;
-    font-size: 18px;
+    width: 100px;
+    height: 35px;
+    font-size: 22px;
     border-radius: 10px;
     border: 1px solid black;
-    background: rgba(74, 207, 57, 0.486);
+    background: #1890ff;
     align-self: flex-end;
+    color: white;
+}
+.button__send:hover {
+    transition: 0.3s;
+    background-color: #188fffa9;
 }
