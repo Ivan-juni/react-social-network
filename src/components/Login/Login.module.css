@@ -13,6 +13,7 @@
 .loginArea h1{
     text-align: center;
     margin-top: 25px;
+    font-size: 32px;
 }
 .loginArea input {
     width: 150px;

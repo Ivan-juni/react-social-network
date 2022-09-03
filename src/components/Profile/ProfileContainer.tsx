@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Profile from "./Profile.tsx";
 import { Navigate, useParams } from "react-router-dom";
-import { withAuthRedirectFuncionalComponent } from "../../hoc/withAuthRedirect.tsx";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect.tsx";
 import { compose } from "redux";
 import {
   getStatusThunkCreator,
@@ -33,5 +33,5 @@ const ProfileContainer = () => {
 
 export default compose(
   //withRouter,
-  withAuthRedirectFuncionalComponent // HOC
+  withAuthRedirect // HOC
 )(ProfileContainer);

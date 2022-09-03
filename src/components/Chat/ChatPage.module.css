@@ -1,0 +1,88 @@
+.wrapper{
+    padding: 25px;
+    margin-top: 10px;
+}
+.caption{
+    font-size: 48px;
+    margin: 40px 20px;
+    margin-bottom: 0px;
+}
+.messages__wrapper{
+    padding: 10px;
+    height: 400px; 
+}
+.button__send {
+    width: 100px;
+    font-size: 22px;
+    border-radius: 10px;
+    border: 1px solid black;
+    background: #1890ff;
+    align-self: flex-end;
+    color: white;
+}
+
+.button__send:hover {
+    transition: 0.3s;
+    background-color: #188fffa9;
+}
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.hline {
+    opacity: 1;
+
+    border: 1px solid #1890ff;
+    width: 100%;
+}
+.userHead{
+    display: flex;
+    align-items: center;
+}
+.user {
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.userInfo{
+    grid-gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.message{
+    font-size: 18px;
+}
+.message ul{
+    padding-left: 20px;
+}
+.user__thumb {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.userName{
+    margin-left: 10px;
+    font-weight: 500;
+}
+.messages__new{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    max-width: 450px;
+    float: right;
+}
+.button__send{
+    margin-top: 15px;
+}
+.messages__new textarea{
+    width: 450px;
+    height: 100px;
+    border-radius: 18px;
+    border: 1px solid black;
+    padding: 10px;
+    font-size: 18px;
+    font-family: arial;
+    resize: none;
+}

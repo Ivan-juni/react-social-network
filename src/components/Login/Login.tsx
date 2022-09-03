@@ -7,9 +7,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginTC } from "../../Redux/auth-reducer.ts";
 import { RootState } from "../../types/types";
 
+
+const Login: React.FC = () => {
+  const captcha = useSelector((state: RootState) => state.auth.captchaURL);
+  if (useSelector((state: RootState) => state.auth.isAuth)) {
+    return <Navigate to={"/profile"} />;
+  }
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.loginArea}>
+        <h1>Sign in</h1>
+        <LoginForm captcha={captcha} />
+      </div>
+    </div>
+  );
+};
+
 type PropsType = {
   captcha: string | null
-}
+};
 
 const LoginForm: React.FC<PropsType> = ({ captcha }) => {
   const dispatch = useDispatch();
@@ -119,21 +135,6 @@ const LoginForm: React.FC<PropsType> = ({ captcha }) => {
         );
       }}
     </Formik>
-  );
-};
-
-const Login: React.FC = () => {
-  const captcha = useSelector((state: RootState) => state.auth.captchaURL);
-  if (useSelector((state: RootState) => state.auth.isAuth)) {
-    return <Navigate to={"/profile"} />;
-  }
-  return (
-    <div className={styles.wrapper}>
-      <div className={styles.loginArea}>
-        <h1>Sign in</h1>
-        <LoginForm captcha={captcha} />
-      </div>
-    </div>
   );
 };
 

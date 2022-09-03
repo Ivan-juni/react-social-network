@@ -4,14 +4,10 @@ import { Navigate, useNavigate } from "react-router-dom";
 //import { profileThunkCreator } from "../Redux/profile-reducer.ts";
 import { RootState } from '../types/types';
 
-export function withAuthRedirectFuncionalComponent<WCP>(WrappedComponent: React.ComponentType<WCP>) {
+export function withAuthRedirect<WCP>(WrappedComponent: React.ComponentType<WCP>) {
   // ! HOC для функциональных компонент
   function RedirectComponent(props: WCP) {
     // * Redirect *
-    type useNavigateType = {
-      useNavigate: (arg0: string) => void
-    }
-
     const navigate = useNavigate();
     const isAuth = useSelector((state: RootState) => state.auth.isAuth);
     const [redirect, setRedirect] = useState(false);

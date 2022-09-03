@@ -38,7 +38,7 @@ const Navbar: React.FC = () => {
             defaultSelectedKeys={['1']}
             style={{ height: '100%', borderRight: 0, paddingTop: '20px' }}
           >
-            <SubMenu title="My Profile">
+            <SubMenu title="My Profile" key={"submenu"}>
               <Menu.Item key={"1"} icon={<UserOutlined />}>
                 <NavLink to="/profile">
                   Profile
@@ -56,16 +56,21 @@ const Navbar: React.FC = () => {
                 </NavLink>
             </Menu.Item>
             <Menu.Item key={"4"}>
+                <NavLink to="/chat">
+                  Chat
+                </NavLink>
+            </Menu.Item>
+            <Menu.Item key={"5"}>
                 <NavLink to="/news">
                   News
                 </NavLink>
             </Menu.Item>
-            <Menu.Item key={"5"}>
+            <Menu.Item key={"6"}>
                 <NavLink to="/music">
                   Music
                 </NavLink>
             </Menu.Item>
-            <Menu.Item key={"6"}>
+            <Menu.Item key={"7"}>
                 <NavLink to="/settings">
                   Settings
                 </NavLink>

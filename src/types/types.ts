@@ -1,3 +1,5 @@
+import { ChatMessageType } from "../api/chat-api"
+
 // profile
 export type postType = {
   map?: any
@@ -100,6 +102,14 @@ type authType = {
 type appType = {
   initialized: boolean
 }
+// chat
+export type statusType = 'pending' | 'ready' | 'error'
+export type ChatMessageType = {
+    message: string
+    photo: string
+    userId: number
+    userName: string
+}
 
 // useSelector
 export interface RootState {
@@ -109,6 +119,10 @@ export interface RootState {
   sidebar: sidebarType
   auth: authType
   app: appType
+  chat: {
+    messages: ChatMessageType[]
+    status: statusType
+  }
 }
 
 // Formik

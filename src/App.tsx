@@ -5,6 +5,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar.tsx";
 import ProfileContainer from "./components/Profile/ProfileContainer.tsx";
 import Header from "./components/Header/Header.tsx";
+import Login from "./components/Login/Login.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import withRouter from "./hoc/withRouter.tsx";
 import withSuspense from "./hoc/withSuspense.tsx";
@@ -13,20 +14,20 @@ import Preloader from "./components/common/Preloader/Preloader.tsx";
 import Footer from "./components/Footer/Footer.tsx";
 import { AppDispatch } from "./Redux/redux-store.ts"
 import { RootState } from './types/types';
-import { LaptopOutlined, UserOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout} from 'antd';
+import { Layout} from 'antd';
 
 const { Content } = Layout;
 
-const Login = withSuspense(
-  React.lazy(() => import("./components/Login/Login.tsx"))
-);
 const Dialogs = withSuspense(
   React.lazy(() => import("./components/Dialogs/Dialogs.tsx"))
 );
 const UsersContainer = withSuspense(
   React.lazy(() => import("./components/Users/UsersContainer.tsx"))
 );
+const ChatPage = withSuspense(
+  React.lazy(() => import('./components/Chat/ChatPage.tsx'))
+);
+
 
 
 const App: React.FC = () => {
@@ -70,6 +71,7 @@ const App: React.FC = () => {
                   <Route path="/profile/*" element={<ProfileContainer />} />
                   <Route path="/dialogs/*" element={<Dialogs />} />
                   <Route path="/users/*" element={<UsersContainer />} />
+                  <Route path="/chat/*" element={<ChatPage />} />
                   <Route path="/login/*" element={<Login />} />
                 </Routes>
             </Content>

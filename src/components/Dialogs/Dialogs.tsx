@@ -6,7 +6,7 @@ import Message from "./Message/Message.tsx";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
-import { withAuthRedirectFuncionalComponent } from "../../hoc/withAuthRedirect.tsx";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect.tsx";
 import { AppDispatch } from "../../Redux/redux-store";
 import { RootState } from '../../types/types';
 
@@ -17,7 +17,6 @@ const MessageForm: React.FC = () => {
     console.log("Form data", values);
     dispatch(dialogsActions.sendMessageActionCreator(values.message));
     resetForm({});
-    //! тут бабахают апи для сабмита
   };
 
   const validationSchema = Yup.object({
@@ -81,4 +80,4 @@ const Dialogs: React.FC = () => {
   );
 };
 
-export default withAuthRedirectFuncionalComponent(Dialogs); // ! HOC;
+export default withAuthRedirect(Dialogs); // ! HOC;

@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { authThunkCreator } from "./auth-reducer.ts";
-import { InferActionsTypes } from "./redux-store";
+import { InferActionsTypes } from "./redux-store.ts";
 //import { getUsersThunkCreator } from "./users-reducer";
 
 const INITIALIZED = "SN/APP/SET_INITIALIZED";
