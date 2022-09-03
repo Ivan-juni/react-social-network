@@ -1,33 +1,33 @@
 {
   "files": {
-    "main.css": "/react-social-network/static/css/main.0a32c620.css",
-    "main.js": "/react-social-network/static/js/main.17e420ac.js",
-    "static/css/294.e764d7fe.chunk.css": "/react-social-network/static/css/294.e764d7fe.chunk.css",
-    "static/js/294.7fe9f467.chunk.js": "/react-social-network/static/js/294.7fe9f467.chunk.js",
-    "static/css/487.709da12f.chunk.css": "/react-social-network/static/css/487.709da12f.chunk.css",
-    "static/js/487.7d232d93.chunk.js": "/react-social-network/static/js/487.7d232d93.chunk.js",
-    "static/css/790.67e97654.chunk.css": "/react-social-network/static/css/790.67e97654.chunk.css",
-    "static/js/790.0c642d2a.chunk.js": "/react-social-network/static/js/790.0c642d2a.chunk.js",
+    "main.css": "/react-social-network/static/css/main.ff164d5d.css",
+    "main.js": "/react-social-network/static/js/main.d4af9898.js",
+    "static/css/969.e8eedc66.chunk.css": "/react-social-network/static/css/969.e8eedc66.chunk.css",
+    "static/js/969.f3e1ba02.chunk.js": "/react-social-network/static/js/969.f3e1ba02.chunk.js",
+    "static/css/18.bb1a6e37.chunk.css": "/react-social-network/static/css/18.bb1a6e37.chunk.css",
+    "static/js/18.cefbe64b.chunk.js": "/react-social-network/static/js/18.cefbe64b.chunk.js",
+    "static/css/450.5d109d9c.chunk.css": "/react-social-network/static/css/450.5d109d9c.chunk.css",
+    "static/js/450.c9f72d88.chunk.js": "/react-social-network/static/js/450.c9f72d88.chunk.js",
     "static/js/787.49fc1e31.chunk.js": "/react-social-network/static/js/787.49fc1e31.chunk.js",
-    "static/js/264.c017cf48.chunk.js": "/react-social-network/static/js/264.c017cf48.chunk.js",
+    "static/js/849.f3d20abc.chunk.js": "/react-social-network/static/js/849.f3d20abc.chunk.js",
     "static/media/intro-bg-1.png": "/react-social-network/static/media/intro-bg-1.59d031de5dd916751d7b.png",
     "static/media/1485.gif": "/react-social-network/static/media/1485.fff86054eac477aa0599.gif",
     "static/media/ava-icon.jpeg": "/react-social-network/static/media/ava-icon.e5117e8e0cea57c9a92f.jpeg",
     "static/media/logo.svg": "/react-social-network/static/media/logo.256ce7ee5aac95be44cfa5b5e76293cd.svg",
     "index.html": "/react-social-network/index.html",
-    "main.0a32c620.css.map": "/react-social-network/static/css/main.0a32c620.css.map",
-    "main.17e420ac.js.map": "/react-social-network/static/js/main.17e420ac.js.map",
-    "294.e764d7fe.chunk.css.map": "/react-social-network/static/css/294.e764d7fe.chunk.css.map",
-    "294.7fe9f467.chunk.js.map": "/react-social-network/static/js/294.7fe9f467.chunk.js.map",
-    "487.709da12f.chunk.css.map": "/react-social-network/static/css/487.709da12f.chunk.css.map",
-    "487.7d232d93.chunk.js.map": "/react-social-network/static/js/487.7d232d93.chunk.js.map",
-    "790.67e97654.chunk.css.map": "/react-social-network/static/css/790.67e97654.chunk.css.map",
-    "790.0c642d2a.chunk.js.map": "/react-social-network/static/js/790.0c642d2a.chunk.js.map",
+    "main.ff164d5d.css.map": "/react-social-network/static/css/main.ff164d5d.css.map",
+    "main.d4af9898.js.map": "/react-social-network/static/js/main.d4af9898.js.map",
+    "969.e8eedc66.chunk.css.map": "/react-social-network/static/css/969.e8eedc66.chunk.css.map",
+    "969.f3e1ba02.chunk.js.map": "/react-social-network/static/js/969.f3e1ba02.chunk.js.map",
+    "18.bb1a6e37.chunk.css.map": "/react-social-network/static/css/18.bb1a6e37.chunk.css.map",
+    "18.cefbe64b.chunk.js.map": "/react-social-network/static/js/18.cefbe64b.chunk.js.map",
+    "450.5d109d9c.chunk.css.map": "/react-social-network/static/css/450.5d109d9c.chunk.css.map",
+    "450.c9f72d88.chunk.js.map": "/react-social-network/static/js/450.c9f72d88.chunk.js.map",
     "787.49fc1e31.chunk.js.map": "/react-social-network/static/js/787.49fc1e31.chunk.js.map",
-    "264.c017cf48.chunk.js.map": "/react-social-network/static/js/264.c017cf48.chunk.js.map"
+    "849.f3d20abc.chunk.js.map": "/react-social-network/static/js/849.f3d20abc.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0a32c620.css",
-    "static/js/main.17e420ac.js"
+    "static/css/main.ff164d5d.css",
+    "static/js/main.d4af9898.js"
   ]
 }
